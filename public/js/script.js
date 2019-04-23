@@ -97,125 +97,46 @@ $('#save-note-btn').on('click', function(e) {
         // Save note to localStorage.
         // The key is the dateTime with seconds, the value is the content of the note.
         saveNote(new Date().toLocaleString(), noteContent);
-
         // Reset variables and update UI.
         noteContent = '';
         renderNotes(getAllNotes());
         noteTextarea.val('');
         instructions.text('Note saved successfully.');
     }
-
 })
 
 //Start the Google api
 $('#analysis-note-btn').on('click', function(e) {
     console.log("analysis button clicked.")
     instructions.text('Start analyse ......');
-    //var input =  noteContent.value;
-    var input = "today is monday in NYC.";
+    var input =  noteContent.value;
+    //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
     console.log(input);
     //call goolge entites api
     var url = '/nlp';
     var data = {text: input};
-
-    fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(data), // data can be `string` or {object}!
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.text())
-    .then(response => console.log('Success:', JSON.stringify(response)))
-    .catch(error => console.error('Error:', error));
-    //
-    console.log(response);
-    var response = {
-      "entities": [
-        {
-          "name": "Trump",
-          "type": "PERSON",
-          "metadata": {
-            "mid": "/m/0cqt90",
-            "wikipedia_url": "https://en.wikipedia.org/wiki/Donald_Trump"
-          },
-          "salience": 0.7936003,
-          "mentions": [
-            {
-              "text": {
-                "content": "Trump",
-                "beginOffset": 10
-              },
-              "type": "PROPER"
-            },
-            {
-              "text": {
-                "content": "President",
-                "beginOffset": 0
-              },
-              "type": "COMMON"
-            }
-          ]
-        },
-        {
-          "name": "White House",
-          "type": "LOCATION",
-          "metadata": {
-            "mid": "/m/081sq",
-            "wikipedia_url": "https://en.wikipedia.org/wiki/White_House"
-          },
-          "salience": 0.09172433,
-          "mentions": [
-            {
-              "text": {
-                "content": "White House",
-                "beginOffset": 36
-              },
-              "type": "PROPER"
-            }
-          ]
-        },
-        {
-          "name": "Pennsylvania Ave NW",
-          "type": "LOCATION",
-          "metadata": {
-            "mid": "/g/1tgb87cq"
-          },
-          "salience": 0.085507184,
-          "mentions": [
-            {
-              "text": {
-                "content": "Pennsylvania Ave NW",
-                "beginOffset": 65
-              },
-              "type": "PROPER"
-            }
-          ]
-        },
-        {
-          "name": "Washington, DC",
-          "type": "LOCATION",
-          "metadata": {
-            "mid": "/m/0rh6k",
-            "wikipedia_url": "https://en.wikipedia.org/wiki/Washington,_D.C."
-          },
-          "salience": 0.029168168,
-          "mentions": [
-            {
-              "text": {
-                "content": "Washington, DC",
-                "beginOffset": 86
-              },
-              "type": "PROPER"
-            }
-          ]
+    var entity = $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      url: url,						
+      success: function(response) {
+        console.log('success');
+        //console.log(JSON.stringify(response));
+        res = response;
         }
-      ],
-      "language": "en"
-    }
-    //return a list of word
-    output = colorText(response);
-    outputText.text(output);
-    console.log(response['entities'])
+      });
+    //
+    entity.done(function(){
+      console.log("NLP job complete.");
+      //return a list of word
+      console.log(res);
+      console.log(res['entities']);
+      console.log(typeof res);
+      output = colorText(res);
+      console.log(output);
+      outputText.text(output);
+    });
 })
 
 notesList.on('click', function(e) {

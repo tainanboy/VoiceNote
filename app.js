@@ -6,11 +6,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(express.static('public'));
 
-// Imports the Google Cloud client library
-const language = require('@google-cloud/language');
-// Instantiates a client
-const client = new language.LanguageServiceClient();
-
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname+'/index.html'));
 });
@@ -19,12 +14,26 @@ app.get('/history', function (req, res) {
     res.send('This is history page.');
 });
 
-app.post('/nlp', function (req, res) {
+app.post('/nlp', async function (req, res) {
     try { 
         //enter code here
-        console.log(req.body.text);
-        //console.log(req.body.data);
-        res.send('This is nlp service. Input text is: '+req.body.text);
+        const language = require('@google-cloud/language');
+        // Creates a client
+        const client = new language.LanguageServiceClient();
+        //
+        //res.send('This is nlp service. Input text is: '+req.body.text);
+        /**
+         * TODO(developer): Uncomment the following line to run this code.
+         */
+        const text = req.body.text;
+        // Prepares a document, representing the provided text
+        const document = {
+            content: text,
+            type: 'PLAIN_TEXT',
+        };
+        const [result] = await client.analyzeEntities({document});
+        //console.log(result);
+        res.send(result);
       } catch (error) {
         // something here
         //console.log(error);
