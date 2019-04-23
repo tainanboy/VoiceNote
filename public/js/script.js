@@ -120,7 +120,7 @@ $('#analysis-note-btn').on('click', function(e) {
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: url,						
+      url: url,
       success: function(response) {
         console.log('success');
         //console.log(JSON.stringify(response));
@@ -136,7 +136,7 @@ $('#analysis-note-btn').on('click', function(e) {
       console.log(typeof res);
       output = colorText(res);
       console.log(output);
-      outputText.text(output);
+
     });
 })
 
@@ -198,6 +198,21 @@ function renderNotes(notes) {
     notesList.html(html);
 }
 
+//Add colored word as a list
+function colorText(response){
+  type_arr = []
+  words_arr = []
+  entites_arr = response['entities']
+  $.each(entites_arr, function( index, value ) {
+    //value is a dictionary
+    word = value['name']
+    type = value['type']
+    console.log(type)
+    temp = $("<p></p>").text(word).addClass(type)
+    outputText.append(temp)
+});
+  return words_arr
+}
 
 function saveNote(dateTime, content) {
     localStorage.setItem('note-' + dateTime, content);
@@ -212,10 +227,7 @@ function colorText(response){
     //the color of word is by types
     coloredText.push(word)
     return coloredText
-
-});
-
-  return coloredText
+  });
 }
 
 function getAllNotes() {

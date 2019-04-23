@@ -1,3 +1,48 @@
+.PERSON {
+  color:  #DB4436;
+}
+.ORGANIZATION {
+  color: #0001FF;
+}
+.OTHER {
+  color: #810000;
+}
+.LOCATION {
+  color: #008001;
+}
+
+.COUNSUMER_GOOD {
+  color: #800080;
+}
+.EVENT {
+  color: #B29838
+}
+.WORK_OF_ART {
+  color:#FF8C01
+}
+.PHONE_NUMBER{
+  color: #469990
+
+}
+.ADDRESS{
+  color: #64B5CD
+}
+.DATE{
+  color: #FB9A99
+}
+.NUMBER{
+  color:#B2DF8A
+}
+.PRICE{
+  color:#FFDA2F
+}
+
+#output-textarea {
+  margin: 20px 0;
+  width: 100%;
+  text-align: center;
+}
+
 ul {
     list-style: none;
     padding: 0;
@@ -52,11 +97,6 @@ button:focus {
 #note-textarea {
     margin: 20px 0;
     width: 80%;
-}
-
-#output-textarea {
-  margin: 20px 0;
-  width: 80%;
 }
 
 #recording-instructions {
