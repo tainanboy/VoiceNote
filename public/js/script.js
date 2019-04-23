@@ -109,9 +109,10 @@ $('#save-note-btn').on('click', function(e) {
 $('#analysis-note-btn').on('click', function(e) {
     console.log("analysis button clicked.")
     instructions.text('Start analyse ......');
-    var input =  noteContent.value;
+    console.log(noteContent);
+    var input =  noteContent;
     //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
-    console.log(input);
+    console.log("input is:"+input);
     //call goolge entites api
     var url = '/nlp';
     var data = {text: input};
