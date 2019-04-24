@@ -207,8 +207,10 @@ function colorText(response){
     //value is a dictionary
     word = value['name']
     type = value['type']
-    console.log(type)
+    //$("<p></p>").text("Text.");
+    console.log('colorText')
     temp = $("<p></p>").text(word).addClass(type)
+    console.log(typeof temp)
     outputText.append(temp)
 });
   return words_arr
@@ -217,18 +219,21 @@ function colorText(response){
 function saveNote(dateTime, content) {
     localStorage.setItem('note-' + dateTime, content);
 }
-
+/*
 function colorText(response){
   coloredText = []
   entites_arr = response['entities']
+  console.log("colorText")
+
   $.each(entites_arr, function( index, value ) {
     //value is a dictionary
     word = value['name']
+    console.log(word)
     //the color of word is by types
     coloredText.push(word)
     return coloredText
   });
-}
+}*/
 
 function getAllNotes() {
     var notes = [];
