@@ -109,6 +109,7 @@ $('#save-note-btn').on('click', function(e) {
 $('#analysis-note-btn').on('click', function(e) {
     console.log("analysis button clicked.")
     instructions.text('Start analyse ......');
+    outputText.html("")
     console.log(noteContent);
     var input =  noteContent;
     //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
@@ -134,7 +135,8 @@ $('#analysis-note-btn').on('click', function(e) {
       console.log(res);
       console.log(res['entities']);
       console.log(typeof res);
-      output = colorText(res);
+      output = colorText(input,res);
+      instructions.text('Analysis complete');
       console.log(output);
 
     });
@@ -199,20 +201,35 @@ function renderNotes(notes) {
 }
 
 //Add colored word as a list
-function colorText(response){
-  type_arr = []
+function colorText(text,response){
   words_arr = []
+  obj_list = []
   entites_arr = response['entities']
   $.each(entites_arr, function( index, value ) {
     //value is a dictionary
     word = value['name']
     type = value['type']
-    //$("<p></p>").text("Text.");
-    console.log('colorText')
-    temp = $("<p></p>").text(word).addClass(type)
-    console.log(typeof temp)
-    outputText.append(temp)
-});
+    //save as html element
+    temp = $("<span></span>").text(word).addClass(type)
+    words_arr.push(word)
+    obj_list.push(temp[0].outerHTML)
+
+  });
+
+  //loop the original text
+  var arr = text.split(' ');
+  var output_html = ''
+  for (var i = 0; i < arr.length; i++) {
+    var word = arr[i];
+    if($.inArray(word, words_arr) != -1) {
+      var index = words_arr.indexOf(word)
+      //output = output + '<span></span>'
+      output_html = output_html + " " + obj_list[index]
+    }else{
+      output_html = output_html + " " + word
+    }
+  }
+  outputText.append(output_html)
   return words_arr
 }
 

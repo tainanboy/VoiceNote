@@ -38,9 +38,10 @@
 }
 
 #output-textarea {
-  margin: 20px 0;
-  width: 100%;
-  text-align: center;
+  width: 80%;
+  margin: auto;
+  padding-top: 20px
+
 }
 
 ul {
