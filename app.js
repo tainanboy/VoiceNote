@@ -6,7 +6,7 @@ var express = require('express'),
     passport = require('passport'),
     bodyParser = require('body-parser')
     User = require('./models/user'),
-    LocalStrategy = require('passport-strategy'),
+    LocalStrategy = require('passport-local'),
     passportLocalMongoose = require("passport-local-mongoose")
 
 const databaseUri = process.env.MONGODB_URI
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(passport.initialize());
 app.use(passport.session());
-
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -51,6 +51,14 @@ app.post('/register', function(req, res) {
             res.redirect("/");
         });
     });
+});
+
+// login logic
+// middleware: passport.authenticate
+app.post('/login', passport.authenticate("local", {
+    successRedirect: '/',
+    failureRedirect: '/register'
+}),function(req, res) {
 });
 
 // analyze texts using google cloud language API
