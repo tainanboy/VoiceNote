@@ -1,1 +1,7 @@
+- more text analysis and visualization 
+- save note to DB, schema design
+- note history page and DB 
+- record and save the audio (to S3?) 
+- edit document 
+- sharing through social media / text / email 
 - rewrite frontend using React.js
