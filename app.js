@@ -1,19 +1,56 @@
-var express = require('express')
-var app = express()
-const path = require('path');
-const router = express.Router();
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // for parsing application/json
-app.use(express.static('public'));
+var express = require('express'),
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    bodyParser = require('body-parser')
+    User = require('./models/user'),
+    LocalStrategy = require('passport-strategy'),
+    passportLocalMongoose = require("passport-local-mongoose")
 
+const databaseUri = process.env.MONGODB_URI
+mongoose.connect(databaseUri, { useNewUrlParser: true });
+
+var app = express();
+app.use(express.static('public'));
+app.set('view engine', 'ejs')
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json()); // for parsing application/json
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// routes
+// homepage
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname+'/index.html'));
+    res.render('index');
 });
 
+// show previous notes
 app.get('/history', function (req, res) {
     res.send('This is history page.');
 });
 
+// show signup form
+app.get('/register', function (req, res) {
+    res.render("register");
+});
+
+// handling user signup logic
+app.post('/register', function(req, res) {
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/");
+        });
+    });
+});
+
+// analyze texts using google cloud language API
 app.post('/nlp', async function (req, res) {
     try { 
         //enter code here
@@ -41,5 +78,5 @@ app.post('/nlp', async function (req, res) {
 });
 
 app.listen(3000, function(){
-    console.log("Server has started!");
+    console.log("Server has started at port 3000!");
 });
