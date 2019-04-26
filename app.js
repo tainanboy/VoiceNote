@@ -5,13 +5,15 @@ var express = require('express'),
     passportLocalMongoose = require("passport-local-mongoose"),
     bodyParser = require('body-parser')
     User = require('./models/user')
+    Note = require('./models/note')
+
 // configure dotenv
 const dotenv = require('dotenv');
 dotenv.config();
 // connect to MongoDB    
 const databaseUri = process.env.MONGODB_URI
 mongoose.connect(databaseUri, { useNewUrlParser: true });
-//
+//create app
 var app = express();
 app.use(express.static('public'));
 app.set('view engine', 'ejs')
@@ -83,6 +85,30 @@ app.get('/logout', function (req, res) {
     res.redirect("/");
 });
 
+// save note to DB
+app.post('/save', function (req, res) {
+    // NoteSchema: username, time, title, content, tags, audio_filepath
+    // TO-DO: get audio file, and save to cloud storage
+    // save new note to DB
+    var newNote = new Note({
+        username: req.session.passport.user,
+        time: new Date(),
+        title: '',
+        content: req.body.data,
+        tags: [''],
+        audio_filepath: ''
+    });
+    newNote.save(function(err, note){
+        if (err){
+            console.log(err);
+        } else{
+            console.log('new note saved to DB');
+            console.log(note);
+        }
+    })
+    res.send('Note saved successfully.');
+});
+
 // analyze texts using google cloud language API
 app.post('/nlp', async function (req, res) {
     try { 
@@ -91,10 +117,6 @@ app.post('/nlp', async function (req, res) {
         // Creates a client
         const client = new language.LanguageServiceClient();
         //
-        //res.send('This is nlp service. Input text is: '+req.body.text);
-        /**
-         * TODO(developer): Uncomment the following line to run this code.
-         */
         const text = req.body.text;
         // Prepares a document, representing the provided text
         const document = {
@@ -102,15 +124,13 @@ app.post('/nlp', async function (req, res) {
             type: 'PLAIN_TEXT',
         };
         const [result] = await client.analyzeEntities({document});
-        //console.log(result);
         res.send(result);
       } catch (error) {
-        // something here
-        //console.log(error);
+        console.log(error);
     }
 });
 
-
+// create server 
 app.listen(3000, function(){
     console.log("Server has started at port 3000!");
 });
