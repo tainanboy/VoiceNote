@@ -1,0 +1,23 @@
+{
+  "name": "VoiceNote",
+  "version": "1.0.0",
+  "description": "This app allows users to take notes by recording and analyze the content using machine learning technology.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tainanboy/VoiceNote.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tainanboy/VoiceNote/issues"
+  },
+  "homepage": "https://github.com/tainanboy/VoiceNote#readme",
+  "dependencies": {
+    "dotenv": "^7.0.0"
+  }
+}
