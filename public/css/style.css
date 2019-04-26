@@ -1,42 +1,87 @@
 .PERSON {
   color:  #DB4436;
+  font-weight: bold;
 }
 .ORGANIZATION {
   color: #0001FF;
+  font-weight: bold;
+
 }
 .OTHER {
   color: #810000;
+  font-weight: bold;
+
 }
 .LOCATION {
   color: #008001;
+  font-weight: bold;
+
 }
 
 .COUNSUMER_GOOD {
   color: #800080;
+  font-weight: bold;
+
 }
 .EVENT {
-  color: #B29838
+  color: #B29838;
+  font-weight: bold;
+
 }
 .WORK_OF_ART {
-  color:#FF8C01
+  color:#FF8C01;
+  font-weight: bold;
+
 }
 .PHONE_NUMBER{
-  color: #469990
+  color: #469990;
+  font-weight: bold;
+
 
 }
 .ADDRESS{
-  color: #64B5CD
+  color: #64B5CD;
+  font-weight: bold;
+
 }
 .DATE{
-  color: #FB9A99
+  color: #FB9A99;
+  font-weight: bold;
+
 }
 .NUMBER{
-  color:#B2DF8A
+  color:#B2DF8A;
+  font-weight: bold;
+
 }
 .PRICE{
-  color:#FFDA2F
+  color:#FFDA2F;
+  font-weight: bold;
+
 }
 
+/* Tooltip container */
+span {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+span .tooltiptext {
+  background-color: black;
+  color: #fff;
+  text-align: center;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+span:mouseover .tooltiptext {
+  visibility: visible;
+}
 #output-textarea {
   width: 80%;
   margin: auto;

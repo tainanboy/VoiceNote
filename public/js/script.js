@@ -159,6 +159,33 @@ notesList.on('click', function(e) {
     }
 });
 
+//add mouseover Functions
+
+     //var divName = $(this).data("id");
+     //$('#' + divName).fadeIn();
+
+$("#output-textarea").hover(function(){
+    var temps = $(this).find('span')
+    console.log( temps);
+
+    temp.on('mouseover', function(e) {
+      //$(this).append('<div class="tooltiptext">'+temp[0].className+'</div>');
+      //console.log('mouseover');
+      //console.log( temp);
+
+    });
+    temp.on('mouseout', function(e) {
+      /*var text = $(this).innerText;
+      $(this).empty();
+      $(this).text(text)
+      console.log(temp[0].outerHTML);
+      console.log(temp);
+*/
+    });
+  }, function(){
+
+  });
+
 /*-----------------------------
       Speech Synthesis
 ------------------------------*/
