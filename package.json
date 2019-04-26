@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/tainanboy/VoiceNote#readme",
   "dependencies": {
-    "dotenv": "^7.0.0"
-  }
+    "dotenv": "^7.0.0",
+    "express-session": "^1.16.1",
+    "req-flash": "0.0.3"
+  },
+  "devDependencies": {}
 }
