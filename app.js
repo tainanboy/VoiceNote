@@ -47,9 +47,15 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
-// show previous notes
+// show previous notes of the users 
 app.get('/history', isLoggedIn, function (req, res) {
-    res.send('This is history page.');
+    user = req.session.passport.user;
+    Note.find({'username': user}, null, {sort: '-time'}, function (err, notes) {
+        if (err) return handleError(err);
+        // 'notes' contains the list of notes that match the criteria.
+        //console.log(notes);
+        res.render("history.ejs", {notesVar: notes});
+    });
 });
 
 // show signup form
