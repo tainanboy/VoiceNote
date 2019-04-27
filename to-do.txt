@@ -1,13 +1,17 @@
 To-do: 
 - more text analysis (NER/ Setiment / categorization) and visualization 
-- note history page and DB: get request, select username == ... order by time  
 - record (+js to save audio -> temp file -> press save upload to cloud storage) and save the audio (to S3?) 
 - edit document (update? / analysis result update?)
 - sharing through social media / text / email (email: aws ses / text: aws sns)
-- rewrite frontend using React.js
 - write Docker files and deploy to EC2 / Kubernete
 - write report 
 
 
-- Done: 
+Done: 
 - save note to DB, schema design: post request
+- note history page and DB: get request, select username == ... order by time  
+
+
+Long-term goal: 
+- send email and verify token after user login
+- rewrite frontend using React.js
