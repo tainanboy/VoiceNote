@@ -168,13 +168,19 @@ $("#output-textarea").hover(function(){
     var temps = $(this).find('span')
     console.log( temps);
 
-    temp.on('mouseover', function(e) {
-      //$(this).append('<div class="tooltiptext">'+temp[0].className+'</div>');
+    temps.on('mouseover', function(e) {
+      console.log('check one element');
+      var title = $(e.target).attr('class');
+      //console.log(target);
+      console.log(e.target);
+      console.log(e);
+      $(e.target).attr('title',title );
+      $(e.target).tooltip();
       //console.log('mouseover');
       //console.log( temp);
 
     });
-    temp.on('mouseout', function(e) {
+    temps.on('mouseout', function(e) {
       /*var text = $(this).innerText;
       $(this).empty();
       $(this).text(text)
