@@ -6,14 +6,18 @@ var express = require('express'),
     bodyParser = require('body-parser')
     User = require('./models/user')
     Note = require('./models/note')
+    multer = require('multer');
+    fs = require('fs');
+    AWS = require('aws-sdk');
+
+// configure dotenv
+const dotenv = require('dotenv');
+dotenv.config();
 
 var authRoutes = require('./routes/index');
     historyRoutes = require('./routes/history');
     operartionsRoutes = require('./routes/operations');
 
-// configure dotenv
-const dotenv = require('dotenv');
-dotenv.config();
 // connect to MongoDB    
 const databaseUri = process.env.MONGODB_URI
 mongoose.connect(databaseUri, { useNewUrlParser: true });

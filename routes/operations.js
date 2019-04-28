@@ -1,11 +1,27 @@
 var express = require("express");
 var router  = express.Router();
 var Note = require('../models/note');
+var multer = require('multer');
+var upload = multer();
+var fs = require('fs');
+var AWS = require('aws-sdk');
 
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  });
 // save note to DB
-router.post('/save', function (req, res) {
+router.post('/save', upload.any(), function (req, res) {
     // NoteSchema: username, time, title, content, tags, audio_filepath
-    // TO-DO: get audio file, and save to cloud storage
+    //console.log(req.body);
+    //console.log('Files: ', req.files);
+    // get audio file, and save to cloud storage
+    var fileName = 'file1.wav';
+    var s3_path = 'https://rawaudios2019.s3.amazonaws.com/'+fileName; 
+    var params = {Bucket: 'rawaudios2019', Key: fileName, Body: req.files[0].buffer};
+    s3.upload(params, function(err, data) {
+        console.log(err, data);
+    });
     // save new note to DB
     if(req.isAuthenticated()){
         var newNote = new Note({
@@ -14,7 +30,7 @@ router.post('/save', function (req, res) {
             title: '',
             content: req.body.data,
             tags: [''],
-            audio_filepath: ''
+            audio_filepath: s3_path
         });
         newNote.save(function(err, note){
             if (err){

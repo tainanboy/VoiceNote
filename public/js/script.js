@@ -67,50 +67,84 @@ recognition.onerror = function(event) {
 /*-----------------------------
       App buttons and input
 ------------------------------*/
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    console.log('getUserMedia supported.');
+    navigator.mediaDevices.getUserMedia (
+       // constraints - only audio needed for this app
+       {
+          audio: true
+       })
+       // Success callback
+       .then(function(stream) {
+           console.log('success')
+           var recordedChunks = [];
 
-$('#start-record-btn').on('click', function(e) {
-    if (noteContent.length) {
-        noteContent += ' ';
-    }
-    recognition.start();
-});
+           mediaRecorder = new MediaRecorder(stream);
+           mediaRecorder.ondataavailable = handleDataAvailable;
+           function handleDataAvailable(event) {
+               if (event.data.size > 0) {
+                   recordedChunks.push(event.data);
+                } else {    
+                }
+            };
+            $('#start-record-btn').on('click', function(e) {
+                if (noteContent.length) {
+                    noteContent += ' ';
+                }
+                recognition.start();
+                mediaRecorder.start();
+            });
+            
+            $('#pause-record-btn').on('click', function(e) {
+                recognition.stop();
+                mediaRecorder.stop();
+                instructions.text('Voice recognition paused.');
+            });
+            
+            // Sync the text inside the text area with the noteContent variable.
+            noteTextarea.on('input', function() {
+                noteContent = $(this).val();
+            });
+            
+            $('#save-note-btn').on('click', function(e) {
+                recognition.stop();
+                //
+                if (!noteContent.length) {
+                    instructions.text('Could not save empty note. Please add a message to your note.');
+                } else {
+                    var blob = new Blob(recordedChunks, { 'type' : 'audio/wav; codecs=MS_PCM' });
+                    var fd = new FormData();
+                    fd.append('audio', blob);
+                    fd.append('data', noteContent);
+                    console.log(fd);
+                    // post the note data to '/save' route
+                    $.ajax({
+                        type: 'POST',
+                        url: '/save',
+                        data: fd,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false
+                    }).done(function(res) {
+                        console.log(res);
+                        // Reset variables and update UI.
+                        noteContent = '';
+                        renderNotes(getAllNotes());
+                        noteTextarea.val('');
+                        instructions.text(res);
+                    });
+                }
+            })
+       })
+       // Error callback
+       .catch(function(err) {
+          console.log('The following getUserMedia error occured: ' + err);
+       }
+    );
+ } else {
+    console.log('getUserMedia not supported on your browser!');
+ }
 
-
-$('#pause-record-btn').on('click', function(e) {
-    recognition.stop();
-    instructions.text('Voice recognition paused.');
-});
-
-// Sync the text inside the text area with the noteContent variable.
-noteTextarea.on('input', function() {
-    noteContent = $(this).val();
-});
-
-$('#save-note-btn').on('click', function(e) {
-    recognition.stop();
-    //
-    if (!noteContent.length) {
-        instructions.text('Could not save empty note. Please add a message to your note.');
-    } else {
-        // post the note data to '/save' route
-        $.post('/save', {data: noteContent}, function (res){
-            console.log(res);
-            // Reset variables and update UI.
-            noteContent = '';
-            renderNotes(getAllNotes());
-            noteTextarea.val('');
-            instructions.text(res);
-        });
-        // Save note to localStorage.
-        // The key is the dateTime with seconds, the value is the content of the note.
-        //saveNote(new Date().toLocaleString(), noteContent);
-        // Reset variables and update UI.
-        //noteContent = '';
-        //renderNotes(getAllNotes());
-        //noteTextarea.val('');
-        //instructions.text('Note saved successfully.');
-    }
-})
 
 //Start the Google api
 $('#analysis-note-btn').on('click', function(e) {
@@ -121,7 +155,7 @@ $('#analysis-note-btn').on('click', function(e) {
     var input =  noteContent;
     //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
     console.log("input is:"+input);
-    //call goolge entites api
+    //post to /nlp route: call goolge entites api
     var url = '/nlp';
     var data = {text: input};
     var entity = $.ajax({
@@ -149,39 +183,6 @@ $('#analysis-note-btn').on('click', function(e) {
     });
 })
 
-notesList.on('click', function(e) {
-    e.preventDefault();
-    var target = $(e.target);
-    // Listen to the selected note.
-    if (target.hasClass('listen-note')) {
-        var content = target.closest('.note').find('.content').text();
-        readOutLoud(content);
-    }
-
-    // Delete note.
-    if (target.hasClass('delete-note')) {
-        var dateTime = target.siblings('.date').text();
-        deleteNote(dateTime);
-        target.closest('.note').remove();
-    }
-});
-
-
-/*-----------------------------
-      Speech Synthesis
-------------------------------*/
-
-function readOutLoud(message) {
-    var speech = new SpeechSynthesisUtterance();
-
-    // Set the text and voice attributes.
-    speech.text = message;
-    speech.volume = 1;
-    speech.rate = 1;
-    speech.pitch = 3;
-
-    window.speechSynthesis.speak(speech);
-}
 
 /*-----------------------------
       Helper Functions
@@ -296,9 +297,4 @@ function getAllNotes() {
         }
     }
     return notes;
-}
-
-
-function deleteNote(dateTime) {
-    localStorage.removeItem('note-' + dateTime);
 }

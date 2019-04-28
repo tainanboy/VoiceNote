@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/tainanboy/VoiceNote#readme",
   "dependencies": {
+    "aws-sdk": "^2.444.0",
     "dotenv": "^7.0.0",
     "ejs": "^2.6.1",
     "express-session": "^1.16.1",

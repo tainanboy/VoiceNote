@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Voice Note App</title>
-    <meta name="description" content="A Voice Note App that allows you to take voice and/or text notes and play them back.">
+    <title>VoiceNote</title>
+    <meta name="description" content="A VoiceNote App that allows you to take voice and/or text notes and analyze content">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
     <!-- Custom Style Sheet -->
@@ -38,17 +38,16 @@
 
     <div class="container-fluid align-center">
         <h1>VoiceNote</h1>
-        <p class="page-description">This app allows you to take notes by recording and analyze the content using machine learning technology.</p>
+        <p class="page-description">Take notes by recording and analyze the content using machine learning technology.</p>
         <hr>
         <h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API. Try Opening This Demo In Google Chrome.</h3>
         <div class="app">
             <div class="row">
                 <div class="col-md-6 align-center">
-                    <h3>Add New Voice</h3>
+                    <h3>Add New Note</h3>
                     <div class="input-single">
                         <textarea  id="note-textarea"  class = 'textarea' placeholder="Create a new note by starting voice recognition." rows="6"></textarea>
                     </div>
-
                 </div>
                 <div class="col-md-6 align-center">
                   <h3>Analysis Result</h3>
@@ -62,19 +61,19 @@
 
 
             <!-- All button -->
-            <button id="start-record-btn" class="btn-success" title="Start Recording">Start Recognition</button>
-            <button id="pause-record-btn" class="btn-warning" title="Pause Recording">Pause Recognition</button>
-            <button id="save-note-btn" class="btn-info" title="Save Note">Save Note</button>
-            <button id="analysis-note-btn" class = 'btn-danger'>Analysis</button>
+            <button id="start-record-btn" class="btn-success" title="Start Recording">Start</button>
+            <button id="pause-record-btn" class="btn-warning" title="Pause Recording">Pause</button>
+            <button id="save-note-btn" class="btn-info" title="Save Note">Save</button>
+            <button id="analysis-note-btn" class = 'btn-danger'>Analyze</button>
 
             <p id="recording-instructions">Press the
-                <strong>Start Recognition</strong> button and allow access.</p>
+                <strong>Start</strong> button and allow access.</p>
             <!-- /row -->
         </div>
         <!-- /app -->
     </div>
 
-    
+    <!-- 
     <div id="footer">
         <div class="clearfix1">
             <div class="container">
@@ -83,18 +82,15 @@
                         <p>Speech to Text Voice Note App 2018</p>
                     </div>
                 </div>
-                <!-- /row -->
             </div>
-            <!-- /container -->
         </div>
     </div>
-    <!-- /footer -->
+    -->
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
-<script src="./js/script.js"></script>
-
-
 </html>
 
 
