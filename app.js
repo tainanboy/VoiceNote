@@ -7,6 +7,10 @@ var express = require('express'),
     User = require('./models/user')
     Note = require('./models/note')
 
+var authRoutes = require('./routes/index');
+    historyRoutes = require('./routes/history');
+    operartionsRoutes = require('./routes/operations');
+
 // configure dotenv
 const dotenv = require('dotenv');
 dotenv.config();
@@ -30,111 +34,15 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-// added as middleware for pages needed user login
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        //req.isAuthenticated() will return true if user is logged in
-        next();
-    } else{
-        res.redirect("/register");
-    }
-}
-
+// see user info in every route
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+})
 // routes
-// homepage
-app.get('/', function (req, res) {
-    res.render('index');
-});
-
-// show previous notes of the users 
-app.get('/history', isLoggedIn, function (req, res) {
-    user = req.session.passport.user;
-    Note.find({'username': user}, null, {sort: '-time'}, function (err, notes) {
-        if (err) return handleError(err);
-        // 'notes' contains the list of notes that match the criteria.
-        //console.log(notes);
-        res.render("history.ejs", {notesVar: notes});
-    });
-});
-
-// show signup form
-app.get('/register', function (req, res) {
-    res.render("register");
-});
-
-// signup logic
-app.post('/register', function(req, res) {
-    var newUser = new User({username: req.body.username});
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-            console.log(err);
-            res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-            res.redirect("/");
-        });
-    });
-});
-
-// login logic
-// middleware: passport.authenticate
-app.post('/login', passport.authenticate("local", {
-    successRedirect: '/',
-    failureRedirect: '/register'
-}),function(req, res) {
-});
-
-// logout
-app.get('/logout', function (req, res) {
-    req.logOut();
-    res.redirect("/");
-});
-
-// save note to DB
-app.post('/save', function (req, res) {
-    // NoteSchema: username, time, title, content, tags, audio_filepath
-    // TO-DO: get audio file, and save to cloud storage
-    // save new note to DB
-    var newNote = new Note({
-        username: req.session.passport.user,
-        time: new Date(),
-        title: '',
-        content: req.body.data,
-        tags: [''],
-        audio_filepath: ''
-    });
-    newNote.save(function(err, note){
-        if (err){
-            console.log(err);
-        } else{
-            console.log('new note saved to DB');
-            console.log(note);
-        }
-    })
-    res.send('Note saved successfully.');
-});
-
-// analyze texts using google cloud language API
-app.post('/nlp', async function (req, res) {
-    try { 
-        //enter code here
-        const language = require('@google-cloud/language');
-        // Creates a client
-        const client = new language.LanguageServiceClient();
-        //
-        const text = req.body.text;
-        // Prepares a document, representing the provided text
-        const document = {
-            content: text,
-            type: 'PLAIN_TEXT',
-        };
-        const [result] = await client.analyzeEntities({document});
-        res.send(result);
-      } catch (error) {
-        console.log(error);
-    }
-});
+app.use(authRoutes);
+app.use(historyRoutes);
+app.use(operartionsRoutes);
 
 // create server 
 app.listen(3000, function(){
