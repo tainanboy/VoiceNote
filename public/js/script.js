@@ -166,38 +166,6 @@ notesList.on('click', function(e) {
     }
 });
 
-//add mouseover Functions
-
-     //var divName = $(this).data("id");
-     //$('#' + divName).fadeIn();
-
-$("#output-textarea").hover(function(){
-    var temps = $(this).find('span')
-    console.log( temps);
-
-    temps.on('mouseover', function(e) {
-      console.log('check one element');
-      var title = $(e.target).attr('class');
-      //console.log(target);
-      console.log(e.target);
-      console.log(e);
-      $(e.target).attr('title',title );
-      $(e.target).tooltip();
-      //console.log('mouseover');
-      //console.log( temp);
-
-    });
-    temps.on('mouseout', function(e) {
-      /*var text = $(this).innerText;
-      $(this).empty();
-      $(this).text(text)
-      console.log(temp[0].outerHTML);
-      console.log(temp);
-*/
-    });
-  }, function(){
-
-  });
 
 /*-----------------------------
       Speech Synthesis
@@ -239,6 +207,25 @@ function renderNotes(notes) {
     }
     notesList.html(html);
 }
+//show cat
+
+function showTooltip(x) {
+
+  var popup = $(x);
+  console.log('popUp');
+  console.log(popup);
+  console.log(popup[0].firstElementChild);
+  popup[0].firstElementChild.classList.toggle("show");
+  console.log('with x');
+  console.log(x.classList);
+
+}
+
+function HideTooltip(x) {
+  var popup = $(x);
+  popup[0].firstElementChild.classList.toggle("show");
+
+}
 
 //Add colored word as a list
 function colorText(text,response){
@@ -250,11 +237,14 @@ function colorText(text,response){
     word = value['name']
     type = value['type']
     //save as html element
-    temp = $("<span></span>").text(word).addClass(type)
+    temp = $('<span onmouseover="showTooltip(this)" onmouseout="HideTooltip(this)"> </span>').text(word).addClass(type + ' popup');
+    temp.append(' <span class="popuptext" id = "myPopup">'+ type +'</span>')
     words_arr.push(word)
     obj_list.push(temp[0].outerHTML)
 
   });
+
+
 
   //loop the original text
   var arr = text.split(' ');
