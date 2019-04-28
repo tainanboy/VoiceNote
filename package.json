@@ -29,5 +29,8 @@
     "react-tooltip": "^3.10.0",
     "req-flash": "0.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "directories": {
+    "example": "examples"
+  }
 }
