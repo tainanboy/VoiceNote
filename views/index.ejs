@@ -24,10 +24,13 @@
       <div class="nav navbar-nav" ng-controller="signCtrl">
         <!-- link to the history-->
         <li class="nav-item"><a href="/history">History </a></li>
-        <!-- link to the Login-->
-        <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
-        <!-- link to the Logout-->
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        <% if (!currentUser){ %>
+            <!-- link to the Login-->
+            <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
+        <% } else{ %>
+            <!-- link to the Logout-->
+            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        <% } %>
       </div>
     </ul>
     </nav>
@@ -71,6 +74,7 @@
         <!-- /app -->
     </div>
 
+    
     <div id="footer">
         <div class="clearfix1">
             <div class="container">

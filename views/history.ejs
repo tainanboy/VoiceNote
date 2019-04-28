@@ -1,0 +1,10 @@
+<h1>Previous Notes of <%=notesVar[0].username%> </h1> 
+
+<% for (var i=0; i<notesVar.length; i++){ %>
+    <li>
+        <%= notesVar[i].time %> 
+    </li>
+    <li>
+        <%= notesVar[i].content %> 
+    </li>
+<% } %>
