@@ -9,18 +9,28 @@ var express = require('express'),
     multer = require('multer');
     fs = require('fs');
     AWS = require('aws-sdk');
+    redis = require('redis')
 
 // configure dotenv
 const dotenv = require('dotenv');
 dotenv.config();
 
-var authRoutes = require('./routes/index');
-    historyRoutes = require('./routes/history');
-    operartionsRoutes = require('./routes/operations');
+// create and connect redis client to local instance.
+const client = redis.createClient(6379);
+// echo redis errors to the console
+client.on('error', (err) => {
+    console.log("Error " + err)
+});
 
 // connect to MongoDB    
 const databaseUri = process.env.MONGODB_URI
 mongoose.connect(databaseUri, { useNewUrlParser: true });
+
+// require routes
+var authRoutes = require('./routes/index');
+    historyRoutes = require('./routes/history');
+    operartionsRoutes = require('./routes/operations');
+
 // create app
 var app = express();
 app.use(express.static('public'));
