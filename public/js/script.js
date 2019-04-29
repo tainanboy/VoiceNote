@@ -156,13 +156,13 @@ $('#analysis-note-btn').on('click', function(e) {
     //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
     console.log("input is:"+input);
     //post to /nlp route: call goolge entites api
-    var url = '/nlp';
     var data = {text: input};
+    //
     var entity = $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: url,
+      url: '/nlp',
       success: function(response) {
         console.log('success');
         //console.log(JSON.stringify(response));
@@ -170,7 +170,7 @@ $('#analysis-note-btn').on('click', function(e) {
         }
       });
     //
-    entity.done(function(){
+    $.when(entity).done(function(){
       console.log("NLP job complete.");
       //return a list of word
       console.log(res);
@@ -179,7 +179,6 @@ $('#analysis-note-btn').on('click', function(e) {
       output = colorText(input,res);
       instructions.text('Analysis complete');
       console.log(output);
-
     });
 })
 

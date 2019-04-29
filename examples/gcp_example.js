@@ -8,22 +8,20 @@ async function main() {
     /**
      * TODO(developer): Uncomment the following line to run this code.
      */
-    const text = 'Your text to analyze, e.g. Hello, world!';
+    const text = 'Google, headquartered in Mountain View (1600 Amphitheatre Pkwy, Mountain View, CA 940430), unveiled the new Android phone for $799 at the Consumer Electronic Show. Sundar Pichai said in his keynote that users love their new Android phones.';
 
     // Prepares a document, representing the provided text
     const document = {
     content: text,
     type: 'PLAIN_TEXT',
     };
-
-    // Detects entities in the document
-    const [result] = await client.analyzeEntities({document});
-
+    var total_results;
+    // 1. Detects entities in the document
+    var [result] = await client.analyzeEntities({document});
     console.log(result);
-
-    const entities = result.entities;
-
-    console.log(entities);
+    //console.log(typeof result);
+    //const entities = result.entities;
+    //console.log(entities);
     
     //console.log('Entities:');
     //entities.forEach(entity => {
@@ -33,6 +31,16 @@ async function main() {
     //    console.log(` - Wikipedia URL: ${entity.metadata.wikipedia_url}$`);
     //}
     //});
-  }
+
+    // 2. Classifies text in the document
+    var [result2] = await client.classifyText({document: document});
+    console.log(result2);
+
+    // 3. sentiment analysis 
+    // Detects the sentiment of the document
+    var [result3] = await client.analyzeSentiment({document: document});
+    console.log(result3);
+    //
+}
   
-  main().catch(console.error);
+main().catch(console.error);

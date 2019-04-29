@@ -21,7 +21,7 @@ var authRoutes = require('./routes/index');
 // connect to MongoDB    
 const databaseUri = process.env.MONGODB_URI
 mongoose.connect(databaseUri, { useNewUrlParser: true });
-//create app
+// create app
 var app = express();
 app.use(express.static('public'));
 app.set('view engine', 'ejs')

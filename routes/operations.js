@@ -15,8 +15,10 @@ router.post('/save', upload.any(), function (req, res) {
     // NoteSchema: username, time, title, content, tags, audio_filepath
     //console.log(req.body);
     //console.log('Files: ', req.files);
+
     // get audio file, and save to cloud storage
-    var fileName = 'file1.wav';
+    var fileName = new Date().toISOString()+'-'+req.session.passport.user;
+    console.log(fileName);
     var s3_path = 'https://rawaudios2019.s3.amazonaws.com/'+fileName; 
     var params = {Bucket: 'rawaudios2019', Key: fileName, Body: req.files[0].buffer};
     s3.upload(params, function(err, data) {
@@ -26,8 +28,8 @@ router.post('/save', upload.any(), function (req, res) {
     if(req.isAuthenticated()){
         var newNote = new Note({
             username: req.session.passport.user,
-            time: new Date(),
-            title: '',
+            time: new Date().toLocaleString(),
+            title: 'Note on '+new Date().toLocaleString(),
             content: req.body.data,
             tags: [''],
             audio_filepath: s3_path
@@ -37,7 +39,7 @@ router.post('/save', upload.any(), function (req, res) {
                 console.log(err);
             } else{
                 console.log('new note saved to DB');
-                //console.log(note);
+                console.log(note);
             }
         })
         res.send('Note saved successfully.');
@@ -60,8 +62,15 @@ router.post('/nlp', async function (req, res) {
             content: text,
             type: 'PLAIN_TEXT',
         };
-        const [result] = await client.analyzeEntities({document});
-        res.send(result);
+        // NER
+        var [result] = await client.analyzeEntities({document});
+        // content classification
+        var [result2] = await client.classifyText({document});
+        // sentiment
+        var [result3] = await client.analyzeSentiment({document});
+        var totalresult = {...result, ...result2, ...result3};
+        //console.log(totalresult);
+        res.send(totalresult);
       } catch (error) {
         console.log(error);
     }
