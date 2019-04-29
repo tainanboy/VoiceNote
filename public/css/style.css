@@ -1,41 +1,134 @@
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.popup .hide {
+  visibility: hidden;
+
+}
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
 .PERSON {
   color:  #DB4436;
+  font-weight: bold;
 }
 .ORGANIZATION {
   color: #0001FF;
+  font-weight: bold;
+
 }
 .OTHER {
   color: #810000;
+  font-weight: bold;
+
 }
 .LOCATION {
   color: #008001;
+  font-weight: bold;
+
 }
 
 .COUNSUMER_GOOD {
   color: #800080;
+  font-weight: bold;
+
 }
 .EVENT {
-  color: #B29838
+  color: #B29838;
+  font-weight: bold;
+
 }
 .WORK_OF_ART {
-  color:#FF8C01
+  color:#FF8C01;
+  font-weight: bold;
+
 }
 .PHONE_NUMBER{
-  color: #469990
+  color: #469990;
+  font-weight: bold;
+
 
 }
 .ADDRESS{
-  color: #64B5CD
+  color: #64B5CD;
+  font-weight: bold;
+
 }
 .DATE{
-  color: #FB9A99
+  color: #FB9A99;
+  font-weight: bold;
+
 }
 .NUMBER{
-  color:#B2DF8A
+  color:#B2DF8A;
+  font-weight: bold;
+
 }
 .PRICE{
-  color:#FFDA2F
+  color:#FFDA2F;
+  font-weight: bold;
+
 }
+
+/* Tooltip container */
+span {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+
 
 #output-textarea {
   width: 80%;
