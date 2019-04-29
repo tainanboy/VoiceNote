@@ -64,64 +64,105 @@ recognition.onerror = function(event) {
     };
 }
 
-
-
 /*-----------------------------
       App buttons and input
 ------------------------------*/
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    console.log('getUserMedia supported.');
+    navigator.mediaDevices.getUserMedia (
+       // constraints - only audio needed for this app
+       {
+          audio: true
+       })
+       // Success callback
+       .then(function(stream) {
+           console.log('success')
+           var recordedChunks = [];
 
-$('#start-record-btn').on('click', function(e) {
-    if (noteContent.length) {
-        noteContent += ' ';
-    }
-    recognition.start();
-});
+           mediaRecorder = new MediaRecorder(stream);
+           mediaRecorder.ondataavailable = handleDataAvailable;
+           function handleDataAvailable(event) {
+               if (event.data.size > 0) {
+                   recordedChunks.push(event.data);
+                } else {    
+                }
+            };
+            $('#start-record-btn').on('click', function(e) {
+                if (noteContent.length) {
+                    noteContent += ' ';
+                }
+                recognition.start();
+                mediaRecorder.start();
+            });
+            
+            $('#pause-record-btn').on('click', function(e) {
+                recognition.stop();
+                mediaRecorder.stop();
+                instructions.text('Voice recognition paused.');
+            });
+            
+            // Sync the text inside the text area with the noteContent variable.
+            noteTextarea.on('input', function() {
+                noteContent = $(this).val();
+            });
+            
+            $('#save-note-btn').on('click', function(e) {
+                recognition.stop();
+                //
+                if (!noteContent.length) {
+                    instructions.text('Could not save empty note. Please add a message to your note.');
+                } else {
+                    var blob = new Blob(recordedChunks, { 'type' : 'audio/wav; codecs=MS_PCM' });
+                    var fd = new FormData();
+                    fd.append('audio', blob);
+                    fd.append('data', noteContent);
+                    console.log(fd);
+                    // post the note data to '/save' route
+                    $.ajax({
+                        type: 'POST',
+                        url: '/save',
+                        data: fd,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false
+                    }).done(function(res) {
+                        console.log(res);
+                        // Reset variables and update UI.
+                        noteContent = '';
+                        renderNotes(getAllNotes());
+                        noteTextarea.val('');
+                        instructions.text(res);
+                    });
+                }
+            })
+       })
+       // Error callback
+       .catch(function(err) {
+          console.log('The following getUserMedia error occured: ' + err);
+       }
+    );
+ } else {
+    console.log('getUserMedia not supported on your browser!');
+ }
 
-
-$('#pause-record-btn').on('click', function(e) {
-    recognition.stop();
-    instructions.text('Voice recognition paused.');
-});
-
-// Sync the text inside the text area with the noteContent variable.
-noteTextarea.on('input', function() {
-    noteContent = $(this).val();
-});
-
-$('#save-note-btn').on('click', function(e) {
-    recognition.stop();
-
-    if (!noteContent.length) {
-        instructions.text('Could not save empty note. Please add a message to your note.');
-    } else {
-        // Save note to localStorage.
-        // The key is the dateTime with seconds, the value is the content of the note.
-        saveNote(new Date().toLocaleString(), noteContent);
-        // Reset variables and update UI.
-        noteContent = '';
-        renderNotes(getAllNotes());
-        noteTextarea.val('');
-        instructions.text('Note saved successfully.');
-    }
-})
 
 //Start the Google api
 $('#analysis-note-btn').on('click', function(e) {
-    console.log("analysis button clicked.")
+    //console.log("analysis button clicked.")
     instructions.text('Start analyse ......');
     outputText.html("")
     console.log(noteContent);
     var input =  noteContent;
     //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
-    console.log("input is:"+input);
-    //call goolge entites api
-    var url = '/nlp';
+    //console.log("input is:"+input);
+    //post to /nlp route: call goolge entites api
     var data = {text: input};
+    //
     var entity = $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: url,
+      url: '/nlp',
       success: function(response) {
         console.log('success');
         //console.log(JSON.stringify(response));
@@ -129,51 +170,17 @@ $('#analysis-note-btn').on('click', function(e) {
         }
       });
     //
-    entity.done(function(){
+    $.when(entity).done(function(){
       console.log("NLP job complete.");
       //return a list of word
-      console.log(res);
-      console.log(res['entities']);
-      console.log(typeof res);
+      //console.log(res);
+      //console.log(res['entities']);
       output = colorText(input,res);
       instructions.text('Analysis complete');
       console.log(output);
-
     });
 })
 
-notesList.on('click', function(e) {
-    e.preventDefault();
-    var target = $(e.target);
-    // Listen to the selected note.
-    if (target.hasClass('listen-note')) {
-        var content = target.closest('.note').find('.content').text();
-        readOutLoud(content);
-    }
-
-    // Delete note.
-    if (target.hasClass('delete-note')) {
-        var dateTime = target.siblings('.date').text();
-        deleteNote(dateTime);
-        target.closest('.note').remove();
-    }
-});
-
-/*-----------------------------
-      Speech Synthesis
-------------------------------*/
-
-function readOutLoud(message) {
-    var speech = new SpeechSynthesisUtterance();
-
-    // Set the text and voice attributes.
-    speech.text = message;
-    speech.volume = 1;
-    speech.rate = 1;
-    speech.pitch = 3;
-
-    window.speechSynthesis.speak(speech);
-}
 
 /*-----------------------------
       Helper Functions
@@ -199,6 +206,25 @@ function renderNotes(notes) {
     }
     notesList.html(html);
 }
+//show cat
+
+function showTooltip(x) {
+
+  var popup = $(x);
+  console.log('popUp');
+  console.log(popup);
+  console.log(popup[0].firstElementChild);
+  popup[0].firstElementChild.classList.toggle("show");
+  console.log('with x');
+  console.log(x.classList);
+
+}
+
+function HideTooltip(x) {
+  var popup = $(x);
+  popup[0].firstElementChild.classList.toggle("show");
+
+}
 
 //Add colored word as a list
 function colorText(text,response){
@@ -210,11 +236,14 @@ function colorText(text,response){
     word = value['name']
     type = value['type']
     //save as html element
-    temp = $("<span></span>").text(word).addClass(type)
+    temp = $('<span onmouseover="showTooltip(this)" onmouseout="HideTooltip(this)"> </span>').text(word).addClass(type + ' popup');
+    temp.append(' <span class="popuptext" id = "myPopup">'+ type +'</span>')
     words_arr.push(word)
     obj_list.push(temp[0].outerHTML)
 
   });
+
+
 
   //loop the original text
   var arr = text.split(' ');
@@ -266,9 +295,4 @@ function getAllNotes() {
         }
     }
     return notes;
-}
-
-
-function deleteNote(dateTime) {
-    localStorage.removeItem('note-' + dateTime);
 }

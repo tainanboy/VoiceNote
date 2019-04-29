@@ -1,0 +1,46 @@
+<title>Previous notes</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<body>
+    <header>
+        <nav class="navbar navbar-static-top">
+        <ul class="nav">
+        <div class="nav navbar-nav" ng-controller="signCtrl">
+            <!-- link to the history-->
+            <li class="nav-item"><a href="/history">History </a></li>
+            <% if (!currentUser){ %>
+                <!-- link to the Login-->
+                <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
+            <% } else{ %>
+                <!-- link to the Logout-->
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            <% } %>
+        </div>
+        </ul>
+        </nav>
+    </header>
+    <h3>Previous Notes of <%=notesVar[0].username%> </h3> 
+
+    <% for (var i=0; i<notesVar.length; i++){ %>
+        <div class="card">
+            <div class="card-header"><%=notesVar[i].title%> </div>
+            <div class="card-body">
+            <blockquote class="blockquote mb-0">
+            <p> <%=notesVar[i].content%> </p>
+                <footer class="blockquote-footer"><%=notesVar[i].time%> </footer>
+            </blockquote>
+            </div>
+        </div>
+    <% } %>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+
