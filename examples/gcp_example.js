@@ -22,7 +22,7 @@ async function main() {
     //console.log(typeof result);
     //const entities = result.entities;
     //console.log(entities);
-    
+
     //console.log('Entities:');
     //entities.forEach(entity => {
     //console.log(entity.name);
@@ -36,11 +36,11 @@ async function main() {
     var [result2] = await client.classifyText({document: document});
     console.log(result2);
 
-    // 3. sentiment analysis 
+    // 3. sentiment analysis
     // Detects the sentiment of the document
     var [result3] = await client.analyzeSentiment({document: document});
     console.log(result3);
     //
 }
-  
+
 main().catch(console.error);

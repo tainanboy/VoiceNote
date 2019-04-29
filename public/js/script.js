@@ -67,6 +67,7 @@ recognition.onerror = function(event) {
 /*-----------------------------
       App buttons and input
 ------------------------------*/
+//grab audio from the page
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     console.log('getUserMedia supported.');
     navigator.mediaDevices.getUserMedia (
@@ -84,7 +85,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
            function handleDataAvailable(event) {
                if (event.data.size > 0) {
                    recordedChunks.push(event.data);
-                } else {    
+                } else {
                 }
             };
             $('#start-record-btn').on('click', function(e) {
@@ -94,18 +95,18 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 recognition.start();
                 mediaRecorder.start();
             });
-            
+
             $('#pause-record-btn').on('click', function(e) {
                 recognition.stop();
                 mediaRecorder.stop();
                 instructions.text('Voice recognition paused.');
             });
-            
+
             // Sync the text inside the text area with the noteContent variable.
             noteTextarea.on('input', function() {
                 noteContent = $(this).val();
             });
-            
+
             $('#save-note-btn').on('click', function(e) {
                 recognition.stop();
                 //
@@ -212,12 +213,8 @@ function renderNotes(notes) {
 function showTooltip(x) {
 
   var popup = $(x);
-  console.log('popUp');
-  console.log(popup);
-  console.log(popup[0].firstElementChild);
+  //console.log('popUp');
   popup[0].firstElementChild.classList.toggle("show");
-  console.log('with x');
-  console.log(x.classList);
 
 }
 
@@ -244,8 +241,6 @@ function colorText(text,response){
 
   });
 
-
-
   //loop the original text
   var arr = text.split(' ');
   var output_html = ''
@@ -266,21 +261,6 @@ function colorText(text,response){
 function saveNote(dateTime, content) {
     localStorage.setItem('note-' + dateTime, content);
 }
-/*
-function colorText(response){
-  coloredText = []
-  entites_arr = response['entities']
-  console.log("colorText")
-
-  $.each(entites_arr, function( index, value ) {
-    //value is a dictionary
-    word = value['name']
-    console.log(word)
-    //the color of word is by types
-    coloredText.push(word)
-    return coloredText
-  });
-}*/
 
 function getAllNotes() {
     var notes = [];
