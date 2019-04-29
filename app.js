@@ -3,24 +3,17 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require("passport-local-mongoose"),
-    bodyParser = require('body-parser')
-    User = require('./models/user')
-    Note = require('./models/note')
-    multer = require('multer');
-    fs = require('fs');
-    AWS = require('aws-sdk');
+    bodyParser = require('body-parser'),
+    User = require('./models/user'),
+    Note = require('./models/note'),
+    multer = require('multer'),
+    fs = require('fs'),
+    AWS = require('aws-sdk'),
     redis = require('redis')
 
 // configure dotenv
 const dotenv = require('dotenv');
 dotenv.config();
-
-// create and connect redis client to local instance.
-const client = redis.createClient(6379);
-// echo redis errors to the console
-client.on('error', (err) => {
-    console.log("Error " + err)
-});
 
 // connect to MongoDB    
 const databaseUri = process.env.MONGODB_URI
