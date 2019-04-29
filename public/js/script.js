@@ -149,13 +149,13 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
 //Start the Google api
 $('#analysis-note-btn').on('click', function(e) {
-    console.log("analysis button clicked.")
+    //console.log("analysis button clicked.")
     instructions.text('Start analyse ......');
     outputText.html("")
     console.log(noteContent);
     var input =  noteContent;
     //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
-    console.log("input is:"+input);
+    //console.log("input is:"+input);
     //post to /nlp route: call goolge entites api
     var data = {text: input};
     //
@@ -174,9 +174,8 @@ $('#analysis-note-btn').on('click', function(e) {
     $.when(entity).done(function(){
       console.log("NLP job complete.");
       //return a list of word
-      console.log(res);
-      console.log(res['entities']);
-      console.log(typeof res);
+      //console.log(res);
+      //console.log(res['entities']);
       output = colorText(input,res);
       instructions.text('Analysis complete');
       console.log(output);

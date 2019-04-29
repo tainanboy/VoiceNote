@@ -3,24 +3,27 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require("passport-local-mongoose"),
-    bodyParser = require('body-parser')
-    User = require('./models/user')
-    Note = require('./models/note')
-    multer = require('multer');
-    fs = require('fs');
-    AWS = require('aws-sdk');
+    bodyParser = require('body-parser'),
+    User = require('./models/user'),
+    Note = require('./models/note'),
+    multer = require('multer'),
+    fs = require('fs'),
+    AWS = require('aws-sdk'),
+    redis = require('redis')
 
 // configure dotenv
 const dotenv = require('dotenv');
 dotenv.config();
 
+// connect to MongoDB    
+const databaseUri = process.env.MONGODB_URI
+mongoose.connect(databaseUri, { useNewUrlParser: true });
+
+// require routes
 var authRoutes = require('./routes/index');
     historyRoutes = require('./routes/history');
     operartionsRoutes = require('./routes/operations');
 
-// connect to MongoDB    
-const databaseUri = process.env.MONGODB_URI
-mongoose.connect(databaseUri, { useNewUrlParser: true });
 // create app
 var app = express();
 app.use(express.static('public'));
