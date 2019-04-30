@@ -165,6 +165,11 @@ button:focus {
 .page-description {
     font-size: 1.1rem;
     margin: 0 auto;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
 }
 
 .tz-link {
@@ -235,4 +240,13 @@ button:focus {
         padding: 10px 10px;
         width: 80%;
     }
+}
+
+.centered {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    color: white;
+    font-size: 70px;
 }
