@@ -170,7 +170,7 @@ button:focus {
     font-size: 1.1rem;
     margin: 0 auto;
     position: absolute;
-    top: 75%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
@@ -248,7 +248,7 @@ button:focus {
 
 .centered {
   position: absolute;
-  top: 65%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
     color: white;
