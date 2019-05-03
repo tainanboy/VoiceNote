@@ -13,11 +13,15 @@ const s3 = new AWS.S3({
   });
 
 // create and connect redis client to local instance.
-const redis_client = redis.createClient(6379);
-// echo redis errors to the console
-redis_client.on('error', (err) => {
-    console.log("Error " + err)
-});
+const redis_client = redis.createClient(
+    process.env.REDIS_PORT,
+    process.env.REDIS_ENDPOINT,
+    {
+      'auth_pass': process.env.REDIS_PASSWORD,
+      'return_buffers': true
+    }
+  ).on('error', (err) => console.error('ERR:REDIS:', err));
+
 
 // Google NLP API 
 const language = require('@google-cloud/language');
