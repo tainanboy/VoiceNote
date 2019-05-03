@@ -1,13 +1,15 @@
-FROM node:7
+FROM node:carbon
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json /app
+COPY package*.json ./
 
 RUN npm install
+RUN npm install express
+RUN npm install multer
+RUN npm install --save @google-cloud/language
 
-COPY . /app
+COPY . .
 
-CMD node index.js
-
-EXPOSE 8081
+EXPOSE 3000
+CMD [ "npm", "start" ]
