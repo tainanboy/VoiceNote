@@ -137,10 +137,10 @@ span {
 
 }
 
-ul {
+/* ul {
     list-style: none;
     padding: 0;
-}
+} */
 
 p {
     color: #444;
@@ -170,7 +170,7 @@ button:focus {
     font-size: 1.1rem;
     margin: 0 auto;
     position: absolute;
-    top: 70%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
@@ -248,9 +248,39 @@ button:focus {
 
 .centered {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
     color: white;
     font-size: 70px;
+}
+
+li {
+  display: block;
+  border-bottom: 1px;
+  display: inline;
+  float: left;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+li a {
+  display: block;
+  color: #1da7da;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Change the link color on hover */
+li a:hover {
+  background-color: #555;
+  color: white;
 }

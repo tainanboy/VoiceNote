@@ -20,14 +20,16 @@
   <header>
     <nav class="navbar navbar-static-top">
     <ul class="nav">
-      <div class="nav navbar-nav" ng-controller="signCtrl">
-        <!-- link to the history-->
+      <div class="nav" ng-controller="signCtrl">
+        <!-- link to home -->
+        <li><a href="#home">Home</a></li>
+        <!-- link to the history -->
         <li class="nav-item"><a href="/history">History </a></li>
         <% if (!currentUser){ %>
-            <!-- link to the Login-->
+            <!-- link to the Login -->
             <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
         <% } else{ %>
-            <!-- link to the Logout-->
+            <!-- link to the Logout -->
             <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
         <% } %>
       </div>
@@ -36,7 +38,7 @@
   </header>
 
     <div class="container-fluid align-center">
-      <img src="image/columbia.jpeg" alt="Snow" style="width:100%;">
+      <img src="image/columbia.jpeg" alt="Snow" style="width:100%;padding:none" >
       <div class="centered">VoiceNote</div>
         <p class="page-description">Take notes by recording and analyze the content using machine learning technology.</p>
         <hr>
