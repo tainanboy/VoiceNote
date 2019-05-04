@@ -6,9 +6,9 @@ COPY package*.json ./
 
 RUN npm install
 
-ENV GOOGLE_APPLICATION_CREDENTIALS="./VoiceNote-310291769422.json"
-
 COPY . .
+
+#ENV GOOGLE_APPLICATION_CREDENTIALS="./VoiceNote-310291769422.json"
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
