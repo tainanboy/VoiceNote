@@ -127,6 +127,15 @@ Most common causes for failures are:
 
 To fix the last 2 problems, you should click on the small camera icon in the browser's address bar (will appear after you click the mic) and there set the permission to Allow **VoiceNote** and pick the correct microphone from the drop-down list.
 
+## Language Supported
+
+**VoiceNote** is developed based on the speech recognition fucntion built-in Chrome Browser and Google Cloud API. Right now, it only support for **English** language.
+
+Thus, when you do a voice search, please set English as your default language in Chrome. 
+
+![image](Demo/languageSet.png)
+
+Head into the main Google app settings (open the Google Chrome, then select Settings in the flyout menu on the left). From there, open the Language section. The menu item you’re looking for is predictably called Languages. This will open up a new selection menu with dozens of languages, each one with a checkbox. You can order them for your laptop to recognize on the fly, but make sure you set English in the 1st order as the default language.
 
 
 ## Development Tools
@@ -152,7 +161,4 @@ The web application is built with MERN stack (MongoDB, Express.js, React.js, Nod
 
 **VoiceNote** is really a broad-platform app. As long as you run it through a Chrome browser it will work. No need for installation, disk space or high-end machines. It will run smoothly on your PC, desktop, laptop and Chromebook. You might try it on your tablets and phones, but it might have issues with some devices.
 
-
-### Interface
-![image](https://drive.google.com/uc?export=view&id=13kEssT9dacCMJoMzXEWE0xdTtsZIe1JL)
 
