@@ -3,7 +3,10 @@ async function main() {
     const language = require('@google-cloud/language');
 
     // Creates a client
-    const client = new language.LanguageServiceClient();
+    const client = new language.LanguageServiceClient({
+        projectId: 'voicenote',
+        keyFilename: '../VoiceNote-310291769422.json'
+    });
 
     /**
      * TODO(developer): Uncomment the following line to run this code.
