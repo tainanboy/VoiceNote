@@ -5,9 +5,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
-RUN npm install express
-RUN npm install multer
-RUN npm install --save @google-cloud/language
+
+ENV GOOGLE_APPLICATION_CREDENTIALS="./VoiceNote-310291769422.json"
 
 COPY . .
 
