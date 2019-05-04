@@ -19,8 +19,14 @@ kubectl expose deployment webapp --type "LoadBalancer"
 kubectl get service webapp
 
 # continue if you need https connection
-kubectl apply -f basic-ingress.yaml
+#kubectl apply -f basic-ingress.yaml
 
-kubectl get ingress basic-ingress
+#kubectl get ingress basic-ingress
 
 # configure static website: https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer
+
+# view logs
+#kubectl logs podname
+
+# login to bash
+#kubectl exec -it podname -- /bin/bash
