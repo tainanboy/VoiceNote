@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="./css/style.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap CDN CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous">
@@ -65,9 +66,11 @@
                   <h3>Analysis Result</h3>
                   <div class="input-single">
                       <div id="output-textarea" class = 'textarea' placeholder="Analysis Output"  rows="6">
+                    </div>
 
-                      </div>
                   </div>
+                  <input name='tags' class='tagify--outside' placeholder='write your own tags'></input>
+
                 </div>
             </div>
 
@@ -76,6 +79,7 @@
         </div>
         <!-- /app -->
     </div>
+
 
     <!--
     <div id="footer">
@@ -93,6 +97,11 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src='./js/jQuery.tagify.min.js'></script>
+    <script src="./js/tagify.js"></script>
+    <link rel='stylesheet' href='./css/tagify.css' />
+
+
     <script src="./js/script.js"></script>
 </body>
 </html>
