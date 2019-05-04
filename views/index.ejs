@@ -20,14 +20,16 @@
   <header>
     <nav class="navbar navbar-static-top">
     <ul class="nav">
-      <div class="nav navbar-nav" ng-controller="signCtrl">
-        <!-- link to the history-->
+      <div class="nav" ng-controller="signCtrl">
+        <!-- link to home -->
+        <li><a href="#home">Home</a></li>
+        <!-- link to the history -->
         <li class="nav-item"><a href="/history">History </a></li>
         <% if (!currentUser){ %>
-            <!-- link to the Login-->
+            <!-- link to the Login -->
             <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
         <% } else{ %>
-            <!-- link to the Logout-->
+            <!-- link to the Logout -->
             <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
         <% } %>
       </div>
@@ -36,12 +38,22 @@
   </header>
 
     <div class="container-fluid align-center">
-      <img src="image/columbia.jpeg" alt="Snow" style="width:100%;">
+      <img src="image/columbia.jpeg" alt="Snow" style="width:100%;padding:none" >
       <div class="centered">VoiceNote</div>
         <p class="page-description">Take notes by recording and analyze the content using machine learning technology.</p>
         <hr>
         <h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API. Try Opening This Demo In Google Chrome.</h3>
         <div class="app">
+
+          <!-- All button -->
+          <button id="start-record-btn" class="btn-success" title="Start Recording">Start</button>
+          <button id="pause-record-btn" class="btn-warning" title="Pause Recording">Pause</button>
+          <button id="save-note-btn" class="btn-info" title="Save Note">Save</button>
+          <button id="analysis-note-btn" class = 'btn-danger'>Analyze</button>
+
+          <p id="recording-instructions">Press the
+              <strong>Start</strong> button and allow access.</p>
+          <!-- /row -->
             <div class="row">
                 <div class="col-md-6 align-center">
                     <h3>Add New Note</h3>
@@ -60,15 +72,7 @@
             </div>
 
 
-            <!-- All button -->
-            <button id="start-record-btn" class="btn-success" title="Start Recording">Start</button>
-            <button id="pause-record-btn" class="btn-warning" title="Pause Recording">Pause</button>
-            <button id="save-note-btn" class="btn-info" title="Save Note">Save</button>
-            <button id="analysis-note-btn" class = 'btn-danger'>Analyze</button>
 
-            <p id="recording-instructions">Press the
-                <strong>Start</strong> button and allow access.</p>
-            <!-- /row -->
         </div>
         <!-- /app -->
     </div>
