@@ -265,7 +265,7 @@ function AddTags(response) {
   console.log(catgories);
   console.log(cat_list);
   tagName = cat_list.join(", ")
-  $('input[name=tags]').value = tagName
+  //$('input[name=tags]').value = tagName
   $('input[name=tags]').tagify();
   // get tags from the server (ajax) and add them:
   $('input[name=tags]').data('tagify').addTags(tagName);

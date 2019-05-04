@@ -64,6 +64,13 @@
     margin-top: 1em;
     margin-bottom: 1em;
 }
+
+.tagify__tag {
+  max-width: 500px;
+  max-height: 24px;
+  margin: 2px 0 5px 3px;
+}
+
 .tagify__tag div{
   max-width: 500px;
   max-height: 24px;
