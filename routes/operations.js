@@ -28,7 +28,7 @@ const language = require('@google-cloud/language');
 // Creates a client
 const client = new language.LanguageServiceClient({
     projectId: 'voicenote',
-    keyFilename: '../VoiceNote-310291769422.json'
+    keyFilename: '/usr/src/app/VoiceNote-310291769422.json'
 });
 
 // save note to DB
