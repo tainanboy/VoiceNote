@@ -1,23 +1,44 @@
-# VoiceNote User Guide
+# VoiceNote
 
-**VoiceNote** is a powerful speech-enabled online notepad, designed to empower your ideas by implementing a clean & efficient design, so you can focus on your thoughts. It is a powerful web application, which combines speech-recognition, text-analysis, documentations saving, and more.
-
-We strive to provide the best online dictation tool by engaging the advanced speech-recognition technology to provide the most accurate results for you. Together with the built-in the **Log-in** and **History** functions, providing you the optimal user experience, and increase your work/study efficiency.
-
-The app works entirely online in your Chrome browser. No download, no install and easy registration, all to help you with a better life.
+**VoiceNote** is a powerful speech-enabled online notepad, designed to empower your ideas by implementing a clean & efficient design, so you can focus on your thoughts. As a web application that combines state-of-the-art speech-recognition technology, text-analysis, documentations saving, and easy registration, together it provides you with the most optimal user experience, and increase your work/study efficiency, to help you with a better life.
 
 ## Introduction
 
-For many of us, typing is slow and time-consuming. **VoiceNote** lets you take notes at the speed of speech.
-
-**VoiceNote** also lets you move from voice-typing to keyboard-typing seamlessly. In this way, you can record when convenient and type when more appropriate. You can also record and edit your text results right away, and continue recording. No need to go through app modes or even stop dictation.
+For many of us, typing is slow and time-consuming. **VoiceNote** lets you take notes at the speed of speech. The app also lets you move from voice-typing to keyboard-typing seamlessly. In this way, you can record when convenient and type when more appropriate. You can also record and edit your text results right away, and continue recording. No need to go through app modes or even stop dictation.
 
 Other features built for productivity for both type of typing are:  
-- Analyze the text for entity identification
+- Analyze the text for entity identification and category classification.
 - Save your voice notes with one-click
 - Log-in for history review and research
-- No installation, or download needed
 - Unlimited usage for free
+
+## Development Tools
+
+The web application is built with MEN stack (MongoDB, Express.js, Node.js), Redis, Passport.js, Bootstrap, Web Speech API, MediaRecorder API, Google Natural Language API, Docker, and AWS S3. 
+
+* [S3](https://aws.amazon.com/s3/) - Store raw audio recording files.
+* [MongoDB](https://www.mongodb.com/) - NoSQL database.
+* [Express.js](https://expressjs.com/) - Web application framework for Node.js. 
+* [Node.js](https://nodejs.org/en/) - Open source server environment.
+* [Redis](https://redis.io/) - In-memory data structure store to cache analysis results for application speedup.
+* [Passport.js](https://expressjs.com/) - Authentication middleware for Node.js.
+* [Bootstrap](https://getbootstrap.com/) - Front-end component library.
+* [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) - For speech recognition and real time transcribe.
+* [MediaRecorder API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API) - Record input voice stream. 
+* [Google Natural Language API](https://cloud.google.com/natural-language/) - Derive insights from text using Google machine learning.
+* [Docker](https://www.docker.com) - Create, deploy, and run applications by using containers.
+* [Jira](https://www.atlassian.com/software/jira) - Project management.
+
+## Usage in local environment 
+You can clone the entire folder and run the application using Node.js or Docker. <br /> 
+Build a docker image.
+``` 
+docker build -t node-web-app .
+``` 
+Run the application in localhost port 3000.
+``` 
+docker run -p 3000:3000 node-web-app
+```
 
 ## Demo
 
@@ -136,38 +157,7 @@ To fix the last 2 problems, you should click on the small camera icon in the bro
 Head into the main Google app settings (open the Google Chrome, then select Settings in the flyout menu on the left). From there, open the Language section. The menu item you’re looking for is predictably called Languages. This will open up a new selection menu with dozens of languages, each one with a checkbox. You can order them for your laptop to recognize on the fly, but make sure you set English in the 1st order as the default language.
 
 
-## Development Tools
-
-The web application is built with MERN stack (MongoDB, Express.js, React.js, Node.js), Redis, Passport.js, Bootstrap, Web Speech API, MediaRecorder API, Google Natural Language API, and AWS S3. 
-
-* [S3](https://aws.amazon.com/s3/) - To store raw audio recording files.
-* [MongoDB](https://www.mongodb.com/) - NoSQL database.
-* [Express.js](https://expressjs.com/) - Web application framework for Node.js. 
-* [React.js](https://reactjs.org/) - Building frontend interfaces.
-* [Node.js](https://nodejs.org/en/) - Open source server environment.
-* [Redis](https://redis.io/) - In-memory data structure store to cache analysis results for application speedup.
-* [Passport.js](https://expressjs.com/) - Authentication middleware for Node.js.
-* [Bootstrap](https://getbootstrap.com/) - Front-end component library.
-* [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) - For speech recognition and real time transcribe.
-* [MediaRecorder API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API) - Record input voice stream. 
-* [Google Natural Language API](https://cloud.google.com/natural-language/) - Derive insights from text using Google machine learning.
-* [Docker](https://www.docker.com) - Create, deploy, and run applications by using containers.
-* [Jira](https://www.atlassian.com/software/jira) - Project management.
-
-
 ## Compatibility & System Requirements
 
 **VoiceNote** is really a broad-platform app. As long as you run it through a Chrome browser it will work. No need for installation, disk space or high-end machines. It will run smoothly on your PC, desktop, laptop and Chromebook. You might try it on your tablets and phones, but it might have issues with some devices.
-
-## Usage in local environment 
-You can clone the entire folder and run the application using Node.js or Docker. <br /> 
-Build a docker image.
-``` 
-docker build -t node-web-app .
-``` 
-Run the application in localhost port 3000.
-``` 
-docker run -p 3000:3000 node-web-app
-``` 
-
 
