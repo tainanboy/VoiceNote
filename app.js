@@ -15,7 +15,7 @@ var express = require('express'),
 const dotenv = require('dotenv');
 dotenv.config();
 
-// connect to MongoDB    
+// connect to MongoDB
 const databaseUri = process.env.MONGODB_URI
 mongoose.connect(databaseUri, { useNewUrlParser: true });
 
@@ -30,7 +30,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); // for parsing application/json
-// passport configuration 
+// passport configuration
 app.use(require("express-session")({
     secret:"This is the final project for pipeline course",
     resave: false,
@@ -51,7 +51,7 @@ app.use(authRoutes);
 app.use(historyRoutes);
 app.use(operartionsRoutes);
 
-// create server 
+// create server
 app.listen(3000, function(){
     console.log("Server has started at port 3000!");
 });

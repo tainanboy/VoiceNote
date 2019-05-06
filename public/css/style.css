@@ -44,10 +44,43 @@
   animation: fadeIn 1s;
 }
 
-.popup .hide {
-  visibility: hidden;
+.tagify {
+  width: 500px;
+  max-height: 35px;
 
 }
+/* Add tag style*/
+.tagify--outside{
+    padding: 0;
+    margin: 10px;
+    width: 500px;
+    max-height: 30px;
+}
+.tagify__input--outside{
+    display: block;
+    max-width: 500px;
+    max-height: 30px;
+    border: 1px solid #DDD;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.tagify__tag {
+  max-width: 500px;
+  max-height: 24px;
+  margin: 2px 0 5px 3px;
+}
+
+.tagify__tag div{
+  max-width: 500px;
+  max-height: 24px;
+
+}
+.tagify__tag-text{
+  max-width: 500px;
+  font-size: 12px;
+}
+
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
   from {opacity: 0;}
@@ -68,11 +101,7 @@
   font-weight: bold;
 
 }
-.OTHER {
-  color: #810000;
-  font-weight: bold;
 
-}
 .LOCATION {
   color: #008001;
   font-weight: bold;
@@ -122,13 +151,11 @@
 }
 
 /* Tooltip container */
-span {
+#input-single span {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
-
-
 
 #output-textarea {
   width: 80%;

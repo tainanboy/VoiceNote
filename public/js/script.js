@@ -67,6 +67,7 @@ recognition.onerror = function(event) {
 /*-----------------------------
       App buttons and input
 ------------------------------*/
+//grab audio from the page
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     console.log('getUserMedia supported.');
     navigator.mediaDevices.getUserMedia (
@@ -84,7 +85,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
            function handleDataAvailable(event) {
                if (event.data.size > 0) {
                    recordedChunks.push(event.data);
-                } else {    
+                } else {
                 }
             };
             $('#start-record-btn').on('click', function(e) {
@@ -94,18 +95,18 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 recognition.start();
                 mediaRecorder.start();
             });
-            
+
             $('#pause-record-btn').on('click', function(e) {
                 recognition.stop();
                 mediaRecorder.stop();
                 instructions.text('Voice recognition paused.');
             });
-            
+
             // Sync the text inside the text area with the noteContent variable.
             noteTextarea.on('input', function() {
                 noteContent = $(this).val();
             });
-            
+
             $('#save-note-btn').on('click', function(e) {
                 recognition.stop();
                 //
@@ -157,7 +158,7 @@ $('#analysis-note-btn').on('click', function(e) {
     //console.log("input is:"+input);
     //post to /nlp route: call goolge entites api
     var data = {text: input};
-    //
+
     var entity = $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
@@ -176,8 +177,8 @@ $('#analysis-note-btn').on('click', function(e) {
       //console.log(res);
       //console.log(res['entities']);
       output = colorText(input,res);
+      AddTags(res);
       instructions.text('Analysis complete');
-      console.log(output);
     });
 })
 
@@ -206,17 +207,13 @@ function renderNotes(notes) {
     }
     notesList.html(html);
 }
-//show cat
 
+//show cat
 function showTooltip(x) {
 
   var popup = $(x);
-  console.log('popUp');
-  console.log(popup);
-  console.log(popup[0].firstElementChild);
+  //console.log('popUp');
   popup[0].firstElementChild.classList.toggle("show");
-  console.log('with x');
-  console.log(x.classList);
 
 }
 
@@ -243,8 +240,6 @@ function colorText(text,response){
 
   });
 
-
-
   //loop the original text
   var arr = text.split(' ');
   var output_html = ''
@@ -261,25 +256,77 @@ function colorText(text,response){
   outputText.append(output_html)
   return words_arr
 }
+//add tags for the analysis
+function AddTags(response) {
+  //format : /Arts & Entertainment/Music & Audio/Pop Music
+  catgories = response['categories'][0]['name'].substring(1);
+  cat_list = catgories.split('/')
+  confidence  = response['categories'][0]
+  console.log(catgories);
+  console.log(cat_list);
+  tagName = cat_list.join(", ")
+  //$('input[name=tags]').value = tagName
+  $('input[name=tags]').tagify();
+  // get tags from the server (ajax) and add them:
+  $('input[name=tags]').data('tagify').addTags(tagName);
+  //$('input[name=tags]').setAttribute( "type='hidden'")
+
+
+
+
+
+
+// "remove all tags" button event listener
+//document.querySelector('.tags--removeAllBtn').addEventListener('click', tagify.removeAllTags.bind(tagify))
+
+// Chainable event listeners
+/*tagify.on('add', onAddTag)
+      .on('remove', onRemoveTag)
+      .on('input', onInput)
+      .on('edit', onTagEdit)
+      .on('invalid', onInvalidTag)
+      .on('click', onTagClick);
+      */
+}
+
+// tag added callback
+function onAddTag(e){
+    console.log("onAddTag: ", e.detail);
+    console.log("original input value: ", input.value)
+    tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
+}
+
+// tag remvoed callback
+function onRemoveTag(e){
+    console.log(e.detail);
+    console.log("tagify instance value:", tagify.value)
+}
+
+// on character(s) added/removed (user is typing/deleting)
+function onInput(e){
+    console.log(e.detail);
+    console.log("onInput: ", e.detail);
+}
+
+function onTagEdit(e){
+    console.log("onTagEdit: ", e.detail);
+}
+
+// invalid tag added callback
+function onInvalidTag(e){
+    console.log("onInvalidTag: ", e.detail);
+}
+
+// invalid tag added callback
+function onTagClick(e){
+    console.log(e.detail);
+    console.log("onTagClick: ", e.detail);
+}
+
 
 function saveNote(dateTime, content) {
     localStorage.setItem('note-' + dateTime, content);
 }
-/*
-function colorText(response){
-  coloredText = []
-  entites_arr = response['entities']
-  console.log("colorText")
-
-  $.each(entites_arr, function( index, value ) {
-    //value is a dictionary
-    word = value['name']
-    console.log(word)
-    //the color of word is by types
-    coloredText.push(word)
-    return coloredText
-  });
-}*/
 
 function getAllNotes() {
     var notes = [];
