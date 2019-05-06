@@ -2,7 +2,7 @@
 
 docker build -t node-web-app .
 
-docker run -p 3000 node-web-app
+docker run -p 3000:3000 node-web-app
 
 # look at whcich port in use
 #docker ps
