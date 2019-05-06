@@ -36,7 +36,7 @@ Create .env file and put in the following information. <br />
 MONGODB_URI = <Your Mongo Atlas MONGODB_URI>
 AWS_ACCESS_KEY = <Your AWS_ACCESS_KEY>
 AWS_SECRET_ACCESS_KEY = <Your AWS_SECRET_ACCESS_KEY>
-AWS_bucket = 
+AWS_bucket = <Your AWS S3 bucket name to store audio files>
 REDIS_PORT = <Your REDIS_PORT>
 REDIS_ENDPOINT = <Your REDIS_ENDPOINT>
 REDIS_PASSWORD = <Your REDIS_PASSWORD>
