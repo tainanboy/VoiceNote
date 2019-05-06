@@ -41,8 +41,8 @@ router.post('/save', upload.any(), function (req, res) {
         // get audio file, and save to cloud storage
         var fileName = new Date().toISOString()+'-'+req.session.passport.user;
         console.log(fileName);
-        var s3_path = 'https://rawaudios2019.s3.amazonaws.com/'+fileName; 
-        var params = {Bucket: 'rawaudios2019', Key: fileName, Body: req.files[0].buffer};
+        var s3_path = 'https://'+process.env.AWS_bucket+'.s3.amazonaws.com/'+fileName; 
+        var params = {Bucket: process.env.AWS_bucket, Key: fileName, Body: req.files[0].buffer};
         s3.upload(params, function(err, data) {
             console.log(err, data);
         });
