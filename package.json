@@ -19,22 +19,14 @@
   },
   "homepage": "https://github.com/tainanboy/VoiceNote#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "@yaireo/tagify": "^2.18.2",
-    "aws-sdk": "^2.444.0",
-    "dotenv": "^7.0.0",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "express-session": "^1.16.1",
-    "gulp": "^4.0.1",
-=======
     "@google-cloud/language": "^2.1.0",
-    "aws-sdk": "^2.449.0",
+    "@yaireo/tagify": "^2.18.2",
+    "aws-sdk": "^2.450.0",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
->>>>>>> f64b29c64f3859100ec210fe979441ed1add44ad
+    "gulp": "^4.0.1",
     "mongoose": "^5.5.5",
     "multer": "^1.4.1",
     "passport": "^0.4.0",
