@@ -1,16 +1,16 @@
 # VoiceNote User Guide
 
-**VoiceNote** is a powerful speech-enabled online notepad, designed to empower your ideas by implementing a clean & efficient design, so you can focus on your thoughts. It is a powerful web-based application, that combining speech-recognition, note-analysis, documentations and more.
+**VoiceNote** is a powerful speech-enabled online notepad, designed to empower your ideas by implementing a clean & efficient design, so you can focus on your thoughts. It is a powerful web application, which combines speech-recognition, text-analysis, documentations saving, and more.
 
 We strive to provide the best online dictation tool by engaging the advanced speech-recognition technology to provide the most accurate results for you. Together with the built-in the **Log-in** and **History** functions, providing you the optimal user experience, and increase your work/study efficiency.
 
-Works entirely online in your Chrome browser. No download, no install and easy registration, all to help you with a better life.
+The app works entirely online in your Chrome browser. No download, no install and easy registration, all to help you with a better life.
 
 ## Introduction
 
-For many of us, key-typing is slow and thus time-consuming. **VoiceNote** lets you type at the speed of speech.
+For many of us, typing is slow and time-consuming. **VoiceNote** lets you take notes at the speed of speech.
 
-**VoiceNote** lets you move from voice-typing to key-typing seamlessly. This way, you can dictate when convenient and type when more appropriate. You can also dictate and edit your text results right away, and continue dictating. No need to go through app modes or even stop dictation.
+**VoiceNote** also lets you move from voice-typing to keyboard-typing seamlessly. In this way, you can record when convenient and type when more appropriate. You can also record and edit your text results right away, and continue recording. No need to go through app modes or even stop dictation.
 
 Other features built for productivity for both type of typing are:  
 - Analyze the text for entity identification
@@ -129,9 +129,7 @@ To fix the last 2 problems, you should click on the small camera icon in the bro
 
 ## Language Supported
 
-**VoiceNote** is developed based on the speech recognition fucntion built-in Chrome Browser and Google Cloud API. Right now, it only support for **English** language.
-
-Thus, when you do a voice search, please set English as your default language in Chrome. 
+**VoiceNote** is developed based on the speech recognition fucntion built-in Chrome Browser and Google Cloud API. Right now, it only supports **English** language. When you do a voice search, please set English as your default language in Chrome. 
 
 ![image](Demo/languageSet.png)
 
@@ -153,12 +151,23 @@ The web application is built with MERN stack (MongoDB, Express.js, React.js, Nod
 * [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) - For speech recognition and real time transcribe.
 * [MediaRecorder API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API) - Record input voice stream. 
 * [Google Natural Language API](https://cloud.google.com/natural-language/) - Derive insights from text using Google machine learning.
+* [Docker](https://www.docker.com) - Create, deploy, and run applications by using containers.
 * [Jira](https://www.atlassian.com/software/jira) - Project management.
-
 
 
 ## Compatibility & System Requirements
 
 **VoiceNote** is really a broad-platform app. As long as you run it through a Chrome browser it will work. No need for installation, disk space or high-end machines. It will run smoothly on your PC, desktop, laptop and Chromebook. You might try it on your tablets and phones, but it might have issues with some devices.
+
+## Usage in local environment 
+You can clone the entire folder and run the application using Node.js or Docker. <br /> 
+Build a docker image.
+``` 
+docker build -t node-web-app .
+``` 
+Run the application in localhost port 3000.
+``` 
+docker run -p 3000:3000 node-web-app
+``` 
 
 
