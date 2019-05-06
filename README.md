@@ -31,6 +31,16 @@ The web application is built with MEN stack (MongoDB, Express.js, Node.js), Redi
 
 ## Usage in local environment 
 You can clone the entire folder and run the application using Node.js or Docker. <br /> 
+Create .env file and put in the following information. <br /> 
+``` 
+MONGODB_URI = <Your Mongo Atlas MONGODB_URI>
+AWS_ACCESS_KEY = <Your AWS_ACCESS_KEY>
+AWS_SECRET_ACCESS_KEY = <Your AWS_SECRET_ACCESS_KEY>
+AWS_bucket = 
+REDIS_PORT = <Your REDIS_PORT>
+REDIS_ENDPOINT = <Your REDIS_ENDPOINT>
+REDIS_PASSWORD = <Your REDIS_PASSWORD>
+``` 
 Build a docker image.
 ``` 
 docker build -t node-web-app .
