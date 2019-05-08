@@ -5,22 +5,71 @@
   <title>Sign in</title>
   <%# <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> %>
   <!-- Bootstrap CDN CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous">
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <link rel="stylesheet" href="./css/style_register.css">
 
 </head>
 
 
-<h2>Sign up form</h2>
+<body>
+    <header>
+      <nav class="navbar navbar-static-top">
+      <ul class="nav">
+        <div class="nav" ng-controller="signCtrl">
+          <!-- link to home -->
+          <li><a href="/">Home</a></li>
+          <!-- link to the history -->
+          <li class="nav-item"><a href="/history">History </a></li>
+          <% if (!currentUser){ %>
+              <!-- link to the Login -->
+              <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
+          <% } else{ %>
+              <!-- link to the Logout -->
+              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+          <% } %>
+        </div>
+      </ul>
+      </nav>
+    </header>
 
-<form action="/register" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Signup</button>
-</form>
+  <div class="container">
 
-<h2> Or login here</h2>
-<form action="/login" method="POST">
+    <div class="col-sm-6 col-sm-offset-3">
+
+      <h2>Sign up form</h2>
+
+      <form action="/register" method="POST">
+        <div class="form-group">
+          <label>username</label>
         <input type="text" name="username" placeholder="username">
-        <input type="password" name="password" placeholder="password">
-        <button>Login</button>
-</form>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="password">
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+      </form>
+
+      <hr>
+
+      <h2> </h2>
+      <h4>Already have an account?</h4>
+      <h2>Login here</h2>
+
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <label>username</label>
+        <input type="text" name="username" placeholder="username">
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="password">
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-lg">Login</button>
+      </form>
