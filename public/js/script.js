@@ -8,6 +8,7 @@ try {
 }
 
 var noteTextarea = $('#note-textarea');
+
 var instructions = $('#recording-instructions');
 var notesList = $('ul#notes');
 //add output text
@@ -146,13 +147,18 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     console.log('getUserMedia not supported on your browser!');
  }
 
+//change the height of the input text field
+ $("#note-textarea").on('input', function() {
+ 	var scroll_height = $("#note-textarea").get(0).scrollHeight;
+ 	$("#note-textarea").css('height', scroll_height + 'px');
+ });
 
 //Start the Google api
 $('#analysis-note-btn').on('click', function(e) {
     //console.log("analysis button clicked.")
     instructions.text('Start analyse ......');
     outputText.html("")
-    console.log(noteContent);
+    //console.log(noteContent);
     var input =  noteContent;
     //var input = "today is monday in NYC. have a nice day. remember out date at 8 pm. I will call Donald Trump at 10.";
     //console.log("input is:"+input);
@@ -266,61 +272,18 @@ function AddTags(response) {
   console.log(cat_list);
   tagName = cat_list.join(", ")
   //$('input[name=tags]').value = tagName
-  $('input[name=tags]').tagify();
+  //$('input[name=tags]').tagify();
   // get tags from the server (ajax) and add them:
-  $('input[name=tags]').data('tagify').addTags(tagName);
+  //$('input[name=tags]').data('tagify').addTags(tagName);
   //$('input[name=tags]').setAttribute( "type='hidden'")
+  var input = document.querySelector('input[name=tags]');
+  $('input[name=tags]').val(tagName);
+  $('input[name=tags]')
+      .tagify()
+      .on('add', function(e, tagName){
+          console.log('added', tagName)
+      });
 
-
-
-
-
-
-// "remove all tags" button event listener
-//document.querySelector('.tags--removeAllBtn').addEventListener('click', tagify.removeAllTags.bind(tagify))
-
-// Chainable event listeners
-/*tagify.on('add', onAddTag)
-      .on('remove', onRemoveTag)
-      .on('input', onInput)
-      .on('edit', onTagEdit)
-      .on('invalid', onInvalidTag)
-      .on('click', onTagClick);
-      */
-}
-
-// tag added callback
-function onAddTag(e){
-    console.log("onAddTag: ", e.detail);
-    console.log("original input value: ", input.value)
-    tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
-}
-
-// tag remvoed callback
-function onRemoveTag(e){
-    console.log(e.detail);
-    console.log("tagify instance value:", tagify.value)
-}
-
-// on character(s) added/removed (user is typing/deleting)
-function onInput(e){
-    console.log(e.detail);
-    console.log("onInput: ", e.detail);
-}
-
-function onTagEdit(e){
-    console.log("onTagEdit: ", e.detail);
-}
-
-// invalid tag added callback
-function onInvalidTag(e){
-    console.log("onInvalidTag: ", e.detail);
-}
-
-// invalid tag added callback
-function onTagClick(e){
-    console.log(e.detail);
-    console.log("onTagClick: ", e.detail);
 }
 
 

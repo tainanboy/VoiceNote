@@ -15,4 +15,9 @@ router.get('/history', isLoggedIn, function (req, res) {
     });
 });
 
+//back to homepage
+router.get('/', function (req, res) {
+    res.render("index.ejs");
+});
+
 module.exports = router;

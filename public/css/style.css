@@ -52,8 +52,8 @@
 /* Add tag style*/
 .tagify--outside{
     padding: 0;
-    margin: 10px;
-    width: 500px;
+    margin: 40px;
+    width: auto;
     max-height: 30px;
 }
 .tagify__input--outside{
