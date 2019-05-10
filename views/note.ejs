@@ -1,0 +1,115 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Note</title>
+
+  <!--Customize style sheet-->
+  <link rel="stylesheet" href="/css/style_history.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Bootstrap CDN CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+      <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"href="/history">History</a>
+            </li>
+          </ul>
+        </div>
+        <form class="form-inline">
+          <% if (!currentUser){ %>
+              <!-- link to the Login-->
+              <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
+          <% } else{ %>
+              <!-- link to the Logout-->
+              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+          <% } %>
+        </form>
+      </nav>
+    </header>
+  <div class="container" >
+    <div class="row">
+      <div class="col">
+        <h3 id = <%=output[0].id%>> <%=output[0].title%> </h3>
+        <p>tags:  <%=output[0].tags%> </p>
+        <p><%=output[0].time%> </p>
+      </div>
+      <div class="w-100"></div>
+      <div class="col">
+        <button id = "edit" class="btn btn-success">Edit</button>
+        <button id = "save" class="btn btn-info">Save</button>
+      </div>
+      <div class="w-100"></div>
+      <div class="col">
+        <p class="text-left" id = 'textfield'> <%=output[0].content %> </p>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $('#edit').on("click", function() {
+        console.log('edit')
+        var divHtml = $('#textfield').html();
+        var editableText = $("<textarea />");
+        editableText.val(divHtml);
+        $('#textfield').replaceWith(editableText);
+        editableText.attr('id', 'textfield');
+        editableText.attr('cols','100');
+        editableText.attr('rows','20');
+
+      });
+
+      $('#save').on("click", function() {
+        console.log('save')
+        var html = $('#textfield').val();
+        console.log($('#textfield'));
+        var viewableText = $("<div>");
+        viewableText.html(html);
+        $('#textfield').replaceWith(viewableText);
+        viewableText.attr('id', 'textfield');
+
+        //need to update the database
+        //send id and the new content to note js
+
+        var id = $('h3').attr("id");
+        var text = html;
+        var dt = {};
+				dt.id = id;
+        dt.content = text;
+        console.log(dt);
+        $.ajax({
+            type: "POST",
+            url: '/note/update',
+            data: JSON.stringify(dt),
+            contentType: 'application/json',
+            success: function (data, textStatus,jqXHR) {
+                console.log('success');
+            },
+            error: function (xhr, status, errorThrown) {
+                //Here the status code can be retrieved like;
+                console.log(xhr.status);
+                //The message added to Response object in Controller can be retrieved as following.
+                console.log(xhr.responseText);
+            }
+          })
+
+      })
+
+
+
+    </script>
+
+  </div>
+</body>
