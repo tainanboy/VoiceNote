@@ -3,6 +3,8 @@ var router  = express.Router();
 var middleware = require("../middleware");
 var { isLoggedIn } = middleware;
 var Note = require('../models/note');
+var id = ""
+var app = express();
 
 // previous notes of the users route
 router.get('/history', isLoggedIn, function (req, res) {
@@ -19,5 +21,11 @@ router.get('/history', isLoggedIn, function (req, res) {
 router.get('/', function (req, res) {
     res.render("index.ejs");
 });
+
+router.post('/getID', function(req, res) {
+	console.log(req);
+
+});
+
 
 module.exports = router;

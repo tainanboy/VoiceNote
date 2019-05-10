@@ -5,6 +5,9 @@
   <title>Previous notes</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/style_history.css">
+  <!--Add client jquery code-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -41,7 +44,7 @@
     <h3>Previous Notes of <%=notesVar[0].username%> </h3>
 
     <% for (var i=0; i<notesVar.length; i++){ %>
-        <div class="card">
+        <div class="card" id = <%=notesVar[i].id%> >
             <div class="card-header"><%=notesVar[i].title%> </div>
             <div class="card-body">
             <blockquote class="blockquote mb-0">
@@ -52,9 +55,29 @@
         </div>
     <% } %>
 
+    <script>
+      $(".card").on("click", function() {
+        console.log('id');
+        console.log(typeof $(this).attr("id"));
+        var id = $(this).attr("id");
+        var dt = {};
+				dt.id = id;
+        console.log(JSON.stringify(dt));
+
+        $.ajax({
+						type: 'POST',
+						data: JSON.stringify(dt),
+				    contentType: 'application/json',
+            url: '/getID',
+            success: function(data) {
+                            console.log('success');
+                          }
+          });
+      })
+    </script>
+
   </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 </body>
