@@ -11,15 +11,11 @@
 
 li {
   display: block;
-  border-bottom: 1px;
   display: inline;
   float: left;
 }
 
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
   width: 100%;
   overflow: hidden;
   background-color: #f1f1f1;
@@ -28,7 +24,6 @@ ul {
 li a {
   display: block;
   color: #1da7da;
-  padding: 8px 16px;
   text-align: center;
   text-decoration: none;
 }

@@ -23,7 +23,7 @@ const redis_client = redis.createClient(
   ).on('error', (err) => console.error('ERR:REDIS:', err));
 
 
-// Google NLP API 
+// Google NLP API
 const language = require('@google-cloud/language');
 // Creates a client
 const client = new language.LanguageServiceClient();
@@ -41,7 +41,7 @@ router.post('/save', upload.any(), function (req, res) {
         // get audio file, and save to cloud storage
         var fileName = new Date().toISOString()+'-'+req.session.passport.user;
         console.log(fileName);
-        var s3_path = 'https://'+process.env.AWS_bucket+'.s3.amazonaws.com/'+fileName; 
+        var s3_path = 'https://'+process.env.AWS_bucket+'.s3.amazonaws.com/'+fileName;
         var params = {Bucket: process.env.AWS_bucket, Key: fileName, Body: req.files[0].buffer};
         s3.upload(params, function(err, data) {
             console.log(err, data);
@@ -71,11 +71,11 @@ router.post('/save', upload.any(), function (req, res) {
 
 // analyze texts using google cloud language API
 router.post('/nlp', async function (req, res) {
-    try { 
+    try {
         // text content to analyze
         const text = req.body.text;
         console.log(text);
-        // Redis part 
+        // Redis part
         // key to store results in Redis store
         const nlpRedisKey = text;
         // Try fetching the result from Redis first in case we have it cached
@@ -113,7 +113,7 @@ router.post('/nlp', async function (req, res) {
                 .catch(error => {
                     // log error message
                     console.log(error);
-                })    
+                })
             }
         });
       } catch (error) {

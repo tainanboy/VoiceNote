@@ -15,7 +15,7 @@
 <body>
 
   <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" >
         <a class="navbar-brand" href="#"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           </button>
@@ -42,7 +42,7 @@
         </nav>
 
   </header>
-  
+
   <div class="container" >
     <h3>Previous Notes of <%=notesVar[0].username%> </h3>
 
@@ -51,7 +51,7 @@
             <div class="card-header" ><%=notesVar[i].title%> </div>
             <div class="card-body">
               <blockquote class="blockquote mb-0">
-                  <p> <%=notesVar[i].content%> </p>
+                  <p id = "content"> <%=notesVar[i].content%> </p>
                 <footer class="blockquote-footer"><%=notesVar[i].time%> </footer>
               </blockquote>
             </div>
@@ -72,7 +72,6 @@
         var id = $(this).attr("id");
         var dt = {};
 				dt.id = id;
-        console.log(JSON.stringify(dt));
 
         $.ajax({
             type: "POST",

@@ -21,14 +21,27 @@ router.get('/', function (req, res) {
 });
 
 //Get the id of the card and redirect to note page
+
 router.post('/history/submit', function(req, res) {
    var id = req.body.id;
-   console.log(req.body.id);
+  // console.log(req.body);
    res.redirect('/history/' + id);
 });
 
 router.get('/history/:id', function(req, res) {
-	 res.render("note.ejs", {output: req.params.id});
+    console.log(req.params);
+    var nid= req.params.id;
+    console.log(nid);
+    Note.find({'_id': nid}, null, function (err, notes) {
+        if (err) return handleError(err);
+        // 'notes' contains the list of notes that match the criteria.
+        //console.log(notes);
+        console.log('notes')
+        console.log(notes);
+        //res.render("history.ejs", {notesVar: notes});
+        res.render("note.ejs", {output: notes});
+
+    });
 });
 
 module.exports = router;
