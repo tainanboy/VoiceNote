@@ -23,6 +23,8 @@ mongoose.connect(databaseUri, { useNewUrlParser: true });
 var authRoutes = require('./routes/index');
     historyRoutes = require('./routes/history');
     operartionsRoutes = require('./routes/operations');
+    noteRoutes = require('./routes/note');
+
 
 // create app
 var app = express();
@@ -50,6 +52,10 @@ app.use(function(req, res, next){
 app.use(authRoutes);
 app.use(historyRoutes);
 app.use(operartionsRoutes);
+app.use(noteRoutes);
+
+
+
 
 // create server
 app.listen(3000, function(){
