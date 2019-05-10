@@ -3,9 +3,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Note</title>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!--Customize style sheet-->
   <link rel="stylesheet" href="/css/style_history.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <!-- Bootstrap CDN CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous">
 
@@ -42,20 +43,50 @@
   <div class="container" >
     <div class="row">
       <div class="col">
-        <h3><%=output[0].title%></h3>
+        <h3> <%=output[0].title%> </h3>
         <p>tags:  <%=output[0].tags%> </p>
         <p><%=output[0].time%> </p>
       </div>
       <div class="w-100"></div>
       <div class="col">
-        <button class="btn btn-success">Edit</button>
-        <button class="btn btn-info">Save</button>
+        <button id = "edit" class="btn btn-success">Edit</button>
+        <button id = "save" class="btn btn-info">Save</button>
       </div>
       <div class="w-100"></div>
       <div class="col">
-        <p class="text-left"> <%=output[0].content %> </p>
+        <p class="text-left" id = 'textfield'> <%=output[0].content %> </p>
       </div>
     </div>
+
+    <script type="text/javascript">
+      $('#edit').on("click", function() {
+        console.log('edit')
+        var divHtml = $('#textfield').html();
+        var editableText = $("<textarea />");
+        editableText.val(divHtml);
+        $('#textfield').replaceWith(editableText);
+        editableText.attr('id', 'textfield');
+        editableText.attr('cols','100');
+        editableText.attr('rows','20');
+
+      });
+
+      $('#save').on("click", function() {
+        console.log('save')
+        var html = $('#textfield').val();
+        console.log($('#textfield'));
+        var viewableText = $("<div>");
+        viewableText.html(html);
+        $('#textfield').replaceWith(viewableText);
+        viewableText.attr('id', 'textfield');
+
+        //need to update the database
+        //send id and the new content to note js
+      })
+
+
+
+    </script>
 
   </div>
 </body>
