@@ -44,3 +44,7 @@ img {
   height: 350px;
   object-fit: fill;
 }
+
+.card { background-color: #FFFFFF; }
+
+.card:hover { background-color: #EAF2F8; }

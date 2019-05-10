@@ -3,10 +3,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Previous notes</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Custom Style Sheet -->
   <link rel="stylesheet" href="./css/style_history.css">
-  <!--Add client jquery code-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Bootstrap CDN CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous">
+
 
 </head>
 
@@ -40,39 +42,56 @@
         </nav>
 
   </header>
+  
   <div class="container" >
     <h3>Previous Notes of <%=notesVar[0].username%> </h3>
 
     <% for (var i=0; i<notesVar.length; i++){ %>
-        <div class="card" id = <%=notesVar[i].id%> >
-            <div class="card-header"><%=notesVar[i].title%> </div>
+        <form class="card" id = <%=notesVar[i].id%> >
+            <div class="card-header" ><%=notesVar[i].title%> </div>
             <div class="card-body">
-            <blockquote class="blockquote mb-0">
-            <p> <%=notesVar[i].content%> </p>
+              <blockquote class="blockquote mb-0">
+                  <p> <%=notesVar[i].content%> </p>
                 <footer class="blockquote-footer"><%=notesVar[i].time%> </footer>
-            </blockquote>
+              </blockquote>
             </div>
-        </div>
+        </form>
     <% } %>
+
+    <!--Try with the example
+    <form action = '/history/submit' method="post">
+      <input type = text name = "id" >
+      <button type = 'submit'>Submit<button>
+    </form>
+-->
 
     <script>
       $(".card").on("click", function() {
-        console.log('id');
-        console.log(typeof $(this).attr("id"));
+        //console.log('id');
+        //console.log(typeof $(this).attr("id"));
         var id = $(this).attr("id");
         var dt = {};
 				dt.id = id;
         console.log(JSON.stringify(dt));
 
         $.ajax({
-						type: 'POST',
-						data: JSON.stringify(dt),
-				    contentType: 'application/json',
-            url: '/getID',
-            success: function(data) {
-                            console.log('success');
-                          }
-          });
+            type: "POST",
+            url: '/history/submit',
+            data: JSON.stringify(dt),
+            contentType: 'application/json',
+            success: function (data, textStatus,jqXHR) {
+                console.log('success');
+                window.location.href= "/history/"+ id;
+            },
+            error: function (xhr, status, errorThrown) {
+                //Here the status code can be retrieved like;
+                console.log(xhr.status);
+                //The message added to Response object in Controller can be retrieved as following.
+                console.log(xhr.responseText);
+            }
+          })
+
+
       })
     </script>
 

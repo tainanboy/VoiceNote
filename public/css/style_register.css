@@ -42,3 +42,7 @@ img {
   height: 350px;
   object-fit: fill;
 }
+
+.div { background-color: #FFFFFF; }
+
+.div:hover { background-color: #000000; }
