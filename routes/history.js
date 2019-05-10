@@ -36,9 +36,6 @@ router.get('/history/:id', function(req, res) {
         if (err) return handleError(err);
         // 'notes' contains the list of notes that match the criteria.
         //console.log(notes);
-        console.log('notes')
-        console.log(notes);
-        //res.render("history.ejs", {notesVar: notes});
         res.render("note.ejs", {output: notes});
 
     });
