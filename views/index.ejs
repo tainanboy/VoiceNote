@@ -13,37 +13,10 @@
     <!-- Bootstrap CDN CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous">
 
-
 </head>
 <body>
-
   <header>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="#"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"href="/history">History</a>
-          </li>
-        </ul>
-      </div>
-
-      <form class="form-inline">
-        <% if (!currentUser){ %>
-            <!-- link to the Login-->
-            <li class="nav-item"><a class="nav-link" href="/register">Sign In</a></li>
-        <% } else{ %>
-            <!-- link to the Logout-->
-            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-        <% } %>
-      </form>
-    </nav>
+    <% include ./partials/header %>
   </header>
 
     <div class="container-fluid align-center">
