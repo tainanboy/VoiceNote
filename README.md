@@ -30,8 +30,8 @@ The web application is built with MEN stack (MongoDB, Express.js, Node.js), Redi
 * [Jira](https://www.atlassian.com/software/jira) - Project management.
 
 ## Usage in local environment 
-You can clone the entire folder and run the application using Node.js or Docker. <br /> 
-Create .env file and put in the following information. <br /> 
+You can clone the entire folder and run the application using Node.js or Docker. Note that our application depends on several cloud services including MongoDB, AWS, Redis, and Google Cloud API. You can setup the Google API using [this link](https://cloud.google.com/natural-language/docs/quickstart-client-libraries), AWS S3 using [this link](https://aws.amazon.com/s3/), MongoDB on [Mongo Atlas](https://www.mongodb.com/cloud/atlas), and Redis on [Redis Lab](https://redislabs.com).  
+Create .env file and put in the following information.
 ``` 
 MONGODB_URI = <Your Mongo Atlas MONGODB_URI>
 AWS_ACCESS_KEY = <Your AWS_ACCESS_KEY>
@@ -48,6 +48,11 @@ docker build -t node-web-app .
 Run the application in localhost port 3000.
 ``` 
 docker run -p 3000:3000 node-web-app
+```
+Or run the app using node.
+``` 
+npm install 
+node app.js 
 ```
 
 ## Demo
@@ -171,3 +176,5 @@ Head into the main Google app settings (open the Google Chrome, then select Sett
 
 **VoiceNote** is really a broad-platform app. As long as you run it through a Chrome browser it will work. No need for installation, disk space or high-end machines. It will run smoothly on your PC, desktop, laptop and Chromebook. You might try it on your tablets and phones, but it might have issues with some devices.
 
+## Future work
+Since our Web Speech API only works using localhost or HTTPS. We plan to apply for SSL certification and deloy the application on the web that use HTTPS for every external endpoint.
