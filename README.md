@@ -41,6 +41,10 @@ REDIS_PORT = <Your REDIS_PORT>
 REDIS_ENDPOINT = <Your REDIS_ENDPOINT>
 REDIS_PASSWORD = <Your REDIS_PASSWORD>
 ``` 
+Put your Google application credential in the folder and change Dockerfile with correct information.
+```
+ENV GOOGLE_APPLICATION_CREDENTIALS="/usr/src/app/<Your credential name>.json"
+``` 
 Build a docker image.
 ``` 
 docker build -t node-web-app .
